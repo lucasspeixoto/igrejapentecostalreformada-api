@@ -13,7 +13,8 @@ backend da [Plataforma IPR](https://igrejapentecostalreformada.vercel.app)
 O projeto foi desenvolvido com as seguintes tecnologias:
 
 - [Sprint Boot](https://spring.io/projects/spring-boot)
-
+- [Maven](https://maven.apache.org/)
+- [MySQL](https://www.mysql.com/)
 
 ## 🚀 Instalação
 
