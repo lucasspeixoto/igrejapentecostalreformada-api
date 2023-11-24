@@ -1,6 +1,5 @@
 package com.platform.igrejapentecostalreformadaapi.security;
 
-
 import com.platform.igrejapentecostalreformadaapi.exceptions.PlatformException;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;

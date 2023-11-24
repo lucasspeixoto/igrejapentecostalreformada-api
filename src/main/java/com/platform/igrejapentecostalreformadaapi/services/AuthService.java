@@ -1,6 +1,4 @@
 package com.platform.igrejapentecostalreformadaapi.services;
-
-
 import com.platform.igrejapentecostalreformadaapi.data.vo.LoginVO;
 import com.platform.igrejapentecostalreformadaapi.data.vo.RegisterVO;
 import com.platform.igrejapentecostalreformadaapi.entities.Role;
@@ -24,6 +22,7 @@ import java.util.Set;
 
 @Service
 public class AuthService {
+
     @Autowired
     private AuthenticationManager authenticationManager;
 
@@ -41,6 +40,8 @@ public class AuthService {
 
     public String login(@Valid LoginVO loginVO) {
 
+
+
         Authentication authentication = authenticationManager
                 .authenticate(
                         new UsernamePasswordAuthenticationToken(
@@ -56,12 +57,12 @@ public class AuthService {
 
         // Check if this user already exists
         if (userRepository.existsByUsername(registerVO.getUsername())) {
-            throw new PlatformException(HttpStatus.BAD_REQUEST, "Username is already exists!");
+            throw new PlatformException(HttpStatus.FORBIDDEN, "Username is already exists!");
         }
 
         // Check if this user email already exists
         if (userRepository.existsByEmail(registerVO.getEmail())) {
-            throw new PlatformException(HttpStatus.BAD_REQUEST, "Email is already exists!");
+            throw new PlatformException(HttpStatus.FORBIDDEN, "Email is already exists!");
         }
 
         User user = new User();
@@ -72,12 +73,18 @@ public class AuthService {
         user.setPassword(passwordEncoder.encode(registerVO.getPassword()));
 
         Set<Role> roles = new HashSet<>();
-        Role userRole = roleRepository.findByName("ROLE_USER").get();
-        roles.add(userRole);
-        user.setRoles(roles);
 
-        userRepository.save(user);
+        if (roleRepository.findByName("ROLE_USER").isPresent()) {
+            Role userRole = roleRepository.findByName("ROLE_USER").get();
 
-        return "User registered successfully!.";
+            roles.add(userRole);
+            user.setRoles(roles);
+
+            userRepository.save(user);
+
+            return "User registered successfully!.";
+        } else {
+            throw new PlatformException(HttpStatus.NOT_FOUND, "User role not found!");
+        }
     }
 }
