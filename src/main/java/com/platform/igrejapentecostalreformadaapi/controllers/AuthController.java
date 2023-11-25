@@ -128,6 +128,7 @@ public class AuthController {
         RegisterResponse registerResponse = new RegisterResponse();
 
         registerResponse.setStatus(201);
+
         registerResponse.setMessage("User created successfully");
 
 

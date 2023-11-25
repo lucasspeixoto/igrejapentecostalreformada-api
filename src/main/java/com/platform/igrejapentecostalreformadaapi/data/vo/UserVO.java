@@ -1,10 +1,11 @@
 package com.platform.igrejapentecostalreformadaapi.data.vo;
 
 import java.util.Objects;
+import java.util.UUID;
 
 public class UserVO {
 
-    private Long id;
+    private UUID id;
 
     private String name;
 
@@ -15,18 +16,18 @@ public class UserVO {
     public UserVO() {
     }
 
-    public UserVO(Long id, String name, String username, String email) {
+    public UserVO(UUID id, String name, String username, String email) {
         this.id = id;
         this.name = name;
         this.username = username;
         this.email = email;
     }
 
-    public Long getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 

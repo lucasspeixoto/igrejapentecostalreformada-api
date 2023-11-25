@@ -13,9 +13,9 @@ public class OpenApiConfig {
     public OpenAPI customOpenAPI() {
         return new OpenAPI()
                 .info(new Info()
-                        .title("Igreja Pentecostal Reformada services")
+                        .title("IPR Platform services")
                         .version("v1")
-                        .description("Documentation about Igreja Pentecostal Reformada api`s")
+                        .description("Documentation about IPR Platform API`s")
                         .termsOfService("https://pub.lspeixotodev.com.br/courses")
                         .license(new License()
                                 .name("Apache 2.0")

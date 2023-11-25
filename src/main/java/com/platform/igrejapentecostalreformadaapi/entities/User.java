@@ -1,7 +1,10 @@
 package com.platform.igrejapentecostalreformadaapi.entities;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -25,8 +28,17 @@ public class User {
     @Column(nullable = false)
     private String password;
 
+    @Column(name="created_at")
+    @CreationTimestamp
+    private Date createdAt;
+
+    @Column(name="updated_at")
+    @UpdateTimestamp
+    private Date updatedAt;
+
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinTable(name = "user_roles",
+    @JoinTable(
+            name = "user_roles",
             joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id")
     )
@@ -42,6 +54,22 @@ public class User {
         this.username = username;
         this.email = email;
         this.password = password;
+    }
+
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public Date getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(Date updatedAt) {
+        this.updatedAt = updatedAt;
     }
 
     public Set<Role> getRoles() {

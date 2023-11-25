@@ -1,6 +1,5 @@
 package com.platform.igrejapentecostalreformadaapi.security;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.platform.igrejapentecostalreformadaapi.data.vo.ErrorDetails;
 import jakarta.servlet.ServletException;
@@ -26,9 +25,10 @@ public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint {
         // set the response status code
         response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
 
+        // set the response content type as json
         response.setContentType("application/json");
 
-        // set up the response body
+        // set up the response body as ErrorDetails clas
         ErrorDetails unauthorized = new ErrorDetails(
                 Instant.now(),
                 "Username, Email or Password is incorrect!",
@@ -38,6 +38,7 @@ public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint {
 
         // write the response body
         objectMapper.writeValue(response.getOutputStream(), unauthorized);
+
         // commit the response
         response.flushBuffer();
 

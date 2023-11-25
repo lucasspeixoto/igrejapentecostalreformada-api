@@ -1,4 +1,6 @@
 package com.platform.igrejapentecostalreformadaapi.services;
+
+
 import com.platform.igrejapentecostalreformadaapi.data.vo.LoginVO;
 import com.platform.igrejapentecostalreformadaapi.data.vo.RegisterVO;
 import com.platform.igrejapentecostalreformadaapi.entities.Role;
@@ -19,9 +21,12 @@ import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.logging.Logger;
 
 @Service
 public class AuthService {
+
+    private final Logger logger = Logger.getLogger(AuthService.class.getName());
 
     @Autowired
     private AuthenticationManager authenticationManager;
@@ -40,7 +45,9 @@ public class AuthService {
 
     public String login(@Valid LoginVO loginVO) {
 
-
+        if (!userRepository.existsByUsername(loginVO.getUsernameOrEmail())) {
+            throw new PlatformException(HttpStatus.FORBIDDEN, "Username or Email does not exists!");
+        }
 
         Authentication authentication = authenticationManager
                 .authenticate(
