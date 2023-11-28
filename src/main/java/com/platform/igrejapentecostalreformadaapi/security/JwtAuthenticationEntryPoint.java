@@ -22,25 +22,7 @@ public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint {
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
 
-        // set the response status code
-        response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-
-        // set the response content type as json
-        response.setContentType("application/json");
-
-        // set up the response body as ErrorDetails clas
-        ErrorDetails unauthorized = new ErrorDetails(
-                Instant.now(),
-                "Username, Email or Password is incorrect!",
-                "",
-                HttpServletResponse.SC_UNAUTHORIZED
-        );
-
-        // write the response body
-        objectMapper.writeValue(response.getOutputStream(), unauthorized);
-
-        // commit the response
-        response.flushBuffer();
+        response.sendError(HttpServletResponse.SC_UNAUTHORIZED, authException.getMessage());
 
     }
 }

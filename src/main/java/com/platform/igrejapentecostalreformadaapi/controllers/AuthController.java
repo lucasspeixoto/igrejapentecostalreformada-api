@@ -1,8 +1,7 @@
 package com.platform.igrejapentecostalreformadaapi.controllers;
 
-
 import com.platform.igrejapentecostalreformadaapi.data.response.JWTAuthResponse;
-import com.platform.igrejapentecostalreformadaapi.data.response.RegisterResponse;
+import com.platform.igrejapentecostalreformadaapi.data.response.PlatformResponse;
 import com.platform.igrejapentecostalreformadaapi.data.vo.LoginVO;
 import com.platform.igrejapentecostalreformadaapi.data.vo.RegisterVO;
 import com.platform.igrejapentecostalreformadaapi.services.AuthService;
@@ -23,7 +22,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(value = "/api/auth", produces = MediaType.APPLICATION_JSON)
+@RequestMapping(value = "/api/v1/auth", produces = MediaType.APPLICATION_JSON)
 @Tag(name = "Authentication", description = "Endpoints for Login and Register")
 public class AuthController {
 
@@ -33,7 +32,7 @@ public class AuthController {
     @Autowired
     private UserService userService;
 
-    @PostMapping(value = {"/login", "/signin"})
+    @PostMapping(value = "/login")
     @Operation(
             summary = "Login in the app",
             description = "Service login the user",
@@ -82,8 +81,7 @@ public class AuthController {
         return ResponseEntity.ok(jwtAuthResponse);
     }
 
-    // Register Rest API
-    @PostMapping(value = {"/register", "/signup"})
+    @PostMapping(value = "/register")
     @Operation(
             summary = "Register in the app",
             description = "Service for create a new user",
@@ -96,7 +94,7 @@ public class AuthController {
                                     @Content(
                                             mediaType = "application/json",
                                             array = @ArraySchema(
-                                                    schema = @Schema(implementation = RegisterResponse.class))
+                                                    schema = @Schema(implementation = PlatformResponse.class))
                                     )
                             }
                     ),
@@ -122,17 +120,13 @@ public class AuthController {
                     )
             }
     )
-    public ResponseEntity<RegisterResponse> register(@Valid @RequestBody RegisterVO registerVO) {
-        String response = authService.register(registerVO);
+    public ResponseEntity<PlatformResponse> register(@Valid @RequestBody RegisterVO registerVO) {
 
-        RegisterResponse registerResponse = new RegisterResponse();
+        PlatformResponse response = authService.register(registerVO);
 
-        registerResponse.setStatus(201);
+        response.setStatus(201);
 
-        registerResponse.setMessage("User created successfully");
-
-
-        return ResponseEntity.ok(registerResponse);
+        return ResponseEntity.ok(response);
     }
 
 }

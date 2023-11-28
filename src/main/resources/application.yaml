@@ -13,7 +13,7 @@ security:
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/igrejapentecostalreformada?useTimezone=true&serverTimezone=UTC
+    url: jdbc:mysql://localhost:3306/igrejapentecostalreformada?useTimezone=true&serverTimezone=America/Sao_Paulo
     username: root
     password: lucasadmin3010
   jpa:
