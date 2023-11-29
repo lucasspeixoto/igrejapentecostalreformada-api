@@ -1,9 +1,7 @@
 package com.platform.igrejapentecostalreformadaapi.services;
 
 import com.platform.igrejapentecostalreformadaapi.data.vo.ContactVO;
-import com.platform.igrejapentecostalreformadaapi.data.vo.UserProcessVO;
 import com.platform.igrejapentecostalreformadaapi.entities.Contact;
-import com.platform.igrejapentecostalreformadaapi.entities.UserProcess;
 import com.platform.igrejapentecostalreformadaapi.exceptions.ResourceNotFoundException;
 import com.platform.igrejapentecostalreformadaapi.mapper.PlatformMapper;
 import com.platform.igrejapentecostalreformadaapi.repositories.ContactRepository;
@@ -11,8 +9,6 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.data.web.PagedResourcesAssembler;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.logging.Logger;

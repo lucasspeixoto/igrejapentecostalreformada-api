@@ -1,6 +1,5 @@
 package com.platform.igrejapentecostalreformadaapi.controllers;
 
-
 import com.platform.igrejapentecostalreformadaapi.data.vo.UserVO;
 import com.platform.igrejapentecostalreformadaapi.entities.User;
 import com.platform.igrejapentecostalreformadaapi.services.AuthService;

@@ -6,11 +6,9 @@ import com.platform.igrejapentecostalreformadaapi.entities.Contact;
 import com.platform.igrejapentecostalreformadaapi.entities.UserProcess;
 import com.platform.igrejapentecostalreformadaapi.exceptions.ResourceNotFoundException;
 import com.platform.igrejapentecostalreformadaapi.mapper.PlatformMapper;
-import com.platform.igrejapentecostalreformadaapi.repositories.ContactRepository;
 import com.platform.igrejapentecostalreformadaapi.repositories.UserProcessRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.web.PagedResourcesAssembler;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

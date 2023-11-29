@@ -1,7 +1,6 @@
 package com.platform.igrejapentecostalreformadaapi.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.platform.igrejapentecostalreformadaapi.data.vo.ErrorDetails;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -11,7 +10,6 @@ import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
-import java.time.Instant;
 
 @Service
 public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint {
