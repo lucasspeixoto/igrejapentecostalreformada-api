@@ -22,12 +22,6 @@ public class ContactService {
     private ContactRepository repository;
 
     @Autowired
-    private PagedResourcesAssembler<ContactVO> assembler;
-
-    @Autowired
-    private PagedResourcesAssembler<Contact> assembler_;
-
-    @Autowired
     private ModelMapper modelMapper;
 
     public List<Contact> findAll() throws Exception {
@@ -37,6 +31,7 @@ public class ContactService {
         return repository.findAll();
 
     }
+
      public ContactVO findById(Long id) {
          logger.info("Finding a contact by Id");
 

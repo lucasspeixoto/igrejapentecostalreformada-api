@@ -37,6 +37,7 @@ public class Contact {
     public Contact() {
     }
 
+
     public Long getUserId() {
         return userId;
     }
