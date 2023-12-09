@@ -52,6 +52,17 @@ public class UserProcess {
     public UserProcess() {
     }
 
+    public UserProcess(boolean hasContact, boolean hasAddress, boolean hasDocument, boolean hasFamily, boolean hasEducation, boolean hasMember, boolean hasBaptism, Long userId) {
+        this.hasContact = hasContact;
+        this.hasAddress = hasAddress;
+        this.hasDocument = hasDocument;
+        this.hasFamily = hasFamily;
+        this.hasEducation = hasEducation;
+        this.hasMember = hasMember;
+        this.hasBaptism = hasBaptism;
+        this.userId = userId;
+    }
+
     public Long getUserId() {
         return userId;
     }

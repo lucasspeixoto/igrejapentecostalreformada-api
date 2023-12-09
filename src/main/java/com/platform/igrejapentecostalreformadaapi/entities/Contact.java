@@ -37,6 +37,22 @@ public class Contact {
     public Contact() {
     }
 
+    public Contact(Long id, String sex, String cellphone, String telephone, Date birthday, Long userId) {
+        this.id = id;
+        this.sex = sex;
+        this.cellphone = cellphone;
+        this.telephone = telephone;
+        this.birthday = birthday;
+        this.userId = userId;
+    }
+
+    public Contact(String sex, String cellphone, String telephone, Date birthday, Long userId) {
+        this.sex = sex;
+        this.cellphone = cellphone;
+        this.telephone = telephone;
+        this.birthday = birthday;
+        this.userId = userId;
+    }
 
     public Long getUserId() {
         return userId;

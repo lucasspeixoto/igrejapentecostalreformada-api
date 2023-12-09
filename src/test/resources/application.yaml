@@ -15,6 +15,9 @@ security:
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/igrejapentecostalreformada?useTimezone=true&serverTimezone=America/Sao_Paulo
+    username: root
+    password: lucasadmin3010
   jpa:
     hibernate:
       ddl-auto: none
@@ -22,6 +25,8 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.MySQL8Dialect
     show-sql: false
+  flyway:
+    enabled: true
 springdoc:
   pathsToMatch:
     - /api/v1/**/
