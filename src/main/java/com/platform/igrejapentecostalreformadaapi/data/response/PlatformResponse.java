@@ -1,5 +1,7 @@
 package com.platform.igrejapentecostalreformadaapi.data.response;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.time.Instant;
 import java.util.Objects;
 
@@ -9,6 +11,7 @@ public class PlatformResponse {
 
     private String message;
 
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone="America/Sao_Paulo")
     private Instant timestamp;
 
     private String details;

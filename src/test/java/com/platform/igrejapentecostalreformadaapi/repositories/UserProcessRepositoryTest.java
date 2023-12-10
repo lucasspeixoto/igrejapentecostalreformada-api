@@ -16,6 +16,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+@DisplayName("UserProcess repository tests")
 class UserProcessRepositoryTest {
 
     public UserProcess userProcess;

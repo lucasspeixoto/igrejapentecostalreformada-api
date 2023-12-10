@@ -1,5 +1,6 @@
 package com.platform.igrejapentecostalreformadaapi.controllers;
 import com.platform.igrejapentecostalreformadaapi.data.vo.UserProcessVO;
+import com.platform.igrejapentecostalreformadaapi.entities.UserProcess;
 import com.platform.igrejapentecostalreformadaapi.services.ContactService;
 import com.platform.igrejapentecostalreformadaapi.services.UserProcessService;
 import com.platform.igrejapentecostalreformadaapi.utils.MediaType;
@@ -201,5 +202,47 @@ public class UserProcessController {
     public ResponseEntity<UserProcessVO> findByUserId(@PathVariable(value = "id") Long id) throws Exception {
 
         return ResponseEntity.ok(service.findByUserId(id));
+    }
+
+    @PatchMapping(
+            value = "/setHasContact/{id}/{userId}",
+            consumes = {MediaType.APPLICATION_JSON},
+            produces = {MediaType.APPLICATION_JSON})
+    @Operation(
+            summary = "Set user Has Contact Data",
+            description = "Set user Has Contact Data by passing in a JSON representation of product",
+            tags = {"Contact"},
+            responses = {
+                    @ApiResponse(
+                            description = "Success",
+                            responseCode = "200",
+                            content = @Content(schema = @Schema(implementation = UserProcess.class))
+                    ),
+                    @ApiResponse(
+                            description = "Bad Request",
+                            responseCode = "400",
+                            content = @Content
+                    ),
+                    @ApiResponse(
+                            description = "Unauthorized",
+                            responseCode = "401",
+                            content = @Content
+                    ),
+                    @ApiResponse(
+                            description = "Not Found",
+                            responseCode = "404",
+                            content = @Content
+                    ),
+                    @ApiResponse(
+                            description = "Internal Server Error",
+                            responseCode = "500",
+                            content = @Content
+                    )
+            }
+    )
+    public ResponseEntity<UserProcessVO> setHasContact(@PathVariable Long id, @PathVariable Long userId) {
+        UserProcessVO userProcess = service.setHasContact(id, userId);
+
+        return ResponseEntity.ok().body(userProcess);
     }
 }

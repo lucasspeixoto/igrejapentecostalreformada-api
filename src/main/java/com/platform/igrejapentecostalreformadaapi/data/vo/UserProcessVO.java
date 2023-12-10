@@ -1,5 +1,7 @@
 package com.platform.igrejapentecostalreformadaapi.data.vo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.Date;
@@ -26,8 +28,10 @@ public class UserProcessVO implements Serializable {
 
     private boolean hasBaptism;
 
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone="America/Sao_Paulo")
     private Date createdAt;
 
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone="America/Sao_Paulo")
     private Date updatedAt;
 
     private Long userId;

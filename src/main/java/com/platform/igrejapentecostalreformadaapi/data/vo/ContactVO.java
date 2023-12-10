@@ -1,5 +1,6 @@
 package com.platform.igrejapentecostalreformadaapi.data.vo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import java.io.Serial;
 import java.io.Serializable;
@@ -22,8 +23,10 @@ public class ContactVO implements Serializable {
 
     private String sex;
 
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone="America/Sao_Paulo")
     private Date createdAt;
 
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone="America/Sao_Paulo")
     private Date updatedAt;
 
     private Long userId;
