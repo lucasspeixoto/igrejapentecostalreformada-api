@@ -1,6 +1,5 @@
 package com.platform.igrejapentecostalreformadaapi.repositories;
 
-
 import com.platform.igrejapentecostalreformadaapi.entities.Role;
 import org.springframework.data.jpa.repository.JpaRepository;
 

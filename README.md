@@ -2,7 +2,7 @@
    Cadastro IPR
 </h1>
 
-<br>
+
 
 ## 💻 Repositório
 
@@ -15,6 +15,10 @@ O projeto foi desenvolvido com as seguintes tecnologias:
 - [Sprint Boot](https://spring.io/projects/spring-boot)
 - [Maven](https://maven.apache.org/)
 - [MySQL](https://www.mysql.com/)
+- [Flyway](https://flywaydb.org/)
+- [JUnit](https://junit.org/junit5/docs/current/api/)
+- [Mockito](https://site.mockito.org/)
+- [Docker](https://www.docker.com/)
 
 ## 🚀 Instalação
 

@@ -1,6 +1,5 @@
 package com.platform.igrejapentecostalreformadaapi.controllers;
 
-
 import com.platform.igrejapentecostalreformadaapi.data.vo.UserVO;
 import com.platform.igrejapentecostalreformadaapi.entities.User;
 import com.platform.igrejapentecostalreformadaapi.services.AuthService;
@@ -20,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(value = "/user", produces = MediaType.APPLICATION_JSON)
+@RequestMapping(value = "/api/v1/user", produces = MediaType.APPLICATION_JSON)
 @Tag(name = "User", description = "Endpoints for Login and Register")
 public class UserController {
 

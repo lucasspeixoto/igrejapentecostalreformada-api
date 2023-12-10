@@ -1,8 +1,9 @@
 package com.platform.igrejapentecostalreformadaapi.services;
 
-
+import com.platform.igrejapentecostalreformadaapi.data.response.PlatformResponse;
 import com.platform.igrejapentecostalreformadaapi.data.vo.LoginVO;
 import com.platform.igrejapentecostalreformadaapi.data.vo.RegisterVO;
+import com.platform.igrejapentecostalreformadaapi.data.vo.UserProcessVO;
 import com.platform.igrejapentecostalreformadaapi.entities.Role;
 import com.platform.igrejapentecostalreformadaapi.entities.User;
 import com.platform.igrejapentecostalreformadaapi.exceptions.PlatformException;
@@ -19,6 +20,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.Instant;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.logging.Logger;
@@ -43,10 +45,13 @@ public class AuthService {
     @Autowired
     private JwtTokenProvider jwtTokenProvider;
 
+    @Autowired
+    private UserProcessService userProcessService;
+
     public String login(@Valid LoginVO loginVO) {
 
         if (!userRepository.existsByUsername(loginVO.getUsernameOrEmail())) {
-            throw new PlatformException(HttpStatus.FORBIDDEN, "Username or Email does not exists!");
+            throw new PlatformException(HttpStatus.FORBIDDEN,"Username or Email does not exists!");
         }
 
         Authentication authentication = authenticationManager
@@ -60,11 +65,11 @@ public class AuthService {
         return jwtTokenProvider.generateToken(authentication);
     }
 
-    public String register(@Valid RegisterVO registerVO) {
+    public PlatformResponse register(@Valid RegisterVO registerVO) {
 
         // Check if this user already exists
         if (userRepository.existsByUsername(registerVO.getUsername())) {
-            throw new PlatformException(HttpStatus.FORBIDDEN, "Username is already exists!");
+            throw new PlatformException(HttpStatus.FORBIDDEN,  "Username is already exists!");
         }
 
         // Check if this user email already exists
@@ -87,11 +92,28 @@ public class AuthService {
             roles.add(userRole);
             user.setRoles(roles);
 
-            userRepository.save(user);
+            // Create started user process data
+            this.createStartedUserProcess(user);
 
-            return "User registered successfully!.";
+            //return "User registered successfully!.";
+            return new PlatformResponse(
+                    201,
+                    "User registered successfully!.",
+                    Instant.now(),
+                    "Welcome to the IPR Platform.");
+
         } else {
-            throw new PlatformException(HttpStatus.NOT_FOUND, "User role not found!");
+            throw new PlatformException(HttpStatus.NOT_FOUND,"User role not found!" );
         }
+    }
+
+    private void createStartedUserProcess(User user) {
+        User entity = userRepository.save(user);
+
+        UserProcessVO startUserProcess = new UserProcessVO();
+
+        startUserProcess.setUserId(entity.getId());
+
+        this.userProcessService.create(startUserProcess);
     }
 }
