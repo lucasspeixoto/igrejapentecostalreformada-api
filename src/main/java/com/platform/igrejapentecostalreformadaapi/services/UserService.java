@@ -1,8 +1,10 @@
 package com.platform.igrejapentecostalreformadaapi.services;
 
+import com.platform.igrejapentecostalreformadaapi.data.vo.UserDetailVO;
 import com.platform.igrejapentecostalreformadaapi.data.vo.UserVO;
 import com.platform.igrejapentecostalreformadaapi.entities.User;
 import com.platform.igrejapentecostalreformadaapi.exceptions.ResourceNotFoundException;
+import com.platform.igrejapentecostalreformadaapi.mapper.UserMapper;
 import com.platform.igrejapentecostalreformadaapi.mapper.PlatformMapper;
 import com.platform.igrejapentecostalreformadaapi.repositories.UserRepository;
 import org.modelmapper.ModelMapper;
@@ -21,32 +23,24 @@ public class UserService {
     private UserRepository repository;
 
     @Autowired
+    private UserMapper userMapper;
+
+    @Autowired
     private ModelMapper modelMapper;
 
-    public UserVO findByUsernameOrEmail(String usernameOrEmail) {
-        User user = this.repository.findByUsernameOrEmail(usernameOrEmail, usernameOrEmail).orElseThrow(
+    public UserVO findByUsernameOrEmail(String username, String email) {
+        User user = this.repository.findByUsernameOrEmail(username, email).orElseThrow(
                 () -> new ResourceNotFoundException("User", "email", 1L)
         );
 
-        return this.convertEntityToDTO(user);
+        return this.userMapper.convertEntityToVO(user);
+
     }
 
-    //! Mapper methods ---------------------------------------------------------------------------
-    private UserVO convertEntityToDTO(User entity) {
-        return PlatformMapper.parseObject(entity, UserVO.class, modelMapper);
-    }
+    public List<UserVO> findAll() {
+        List<User> users = this.repository.findAll();
 
-    private User convertDTOToEntity(UserVO postDTO) {
-        return PlatformMapper.parseObject(postDTO, User.class, modelMapper);
+        return this.userMapper.convertEntitiesToVOs(users);
     }
-
-    private List<UserVO> convertEntitiesToDTOs(List<User> entities) {
-        return PlatformMapper.parseListObjects(entities, UserVO.class, modelMapper);
-    }
-
-    private List<User> convertDTOsToEntities(List<UserVO> states) {
-        return PlatformMapper.parseListObjects(states, User.class, modelMapper);
-    }
-    //! --------------------------------------------------------------------------- Mapper methods
 
 }
