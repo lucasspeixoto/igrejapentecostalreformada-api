@@ -49,9 +49,9 @@ public class UserProcessService {
 
     public UserProcessVO create(UserProcessVO userProcessVO) {
 
-        logger.info("Creating a contact user data");
+        logger.info("Creating a user process data");
 
-        // Create Contact data
+
         UserProcess userProcess = this.convertDTOToEntity(userProcessVO);
 
         UserProcess newUserProcess = this.repository.save(userProcess);

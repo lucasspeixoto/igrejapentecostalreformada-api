@@ -2,6 +2,7 @@ package com.platform.igrejapentecostalreformadaapi.mapper;
 
 import org.modelmapper.ModelMapper;
 
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,6 +12,9 @@ public class PlatformMapper {
             Class<D> destination,
             ModelMapper modelMapper
     ) {
+
+
+
         return modelMapper.map(origin, destination);
     }
 
