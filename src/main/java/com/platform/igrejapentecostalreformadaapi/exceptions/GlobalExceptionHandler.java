@@ -43,6 +43,27 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
                 .body(errorDetails);
     }
 
+    @ExceptionHandler({ResourceAlreadyExistsException.class})
+    public ResponseEntity<ErrorDetails> handleResourceAlreadyExistsException(
+            ResourceAlreadyExistsException exception,
+            WebRequest webRequest
+    ) {
+
+        HttpStatus status = HttpStatus.NOT_FOUND;
+
+        ErrorDetails errorDetails = new ErrorDetails(
+                Instant.now(),
+                exception.getMessage(),
+                webRequest.getDescription(false),
+                status.value()
+        );
+
+        return ResponseEntity
+                .status(status)
+                .contentType(org.springframework.http.MediaType.valueOf(MediaType.APPLICATION_JSON))
+                .body(errorDetails);
+    }
+
     @ExceptionHandler(PlatformException.class)
     public ResponseEntity<ErrorDetails> handlePlatformException(
             PlatformException exception,

@@ -2,15 +2,14 @@ package com.platform.igrejapentecostalreformadaapi.services;
 
 import com.platform.igrejapentecostalreformadaapi.data.vo.ContactVO;
 import com.platform.igrejapentecostalreformadaapi.entities.Contact;
+import com.platform.igrejapentecostalreformadaapi.exceptions.ResourceAlreadyExistsException;
 import com.platform.igrejapentecostalreformadaapi.exceptions.ResourceNotFoundException;
-import com.platform.igrejapentecostalreformadaapi.mapper.PlatformMapper;
+import com.platform.igrejapentecostalreformadaapi.mapper.ContactMapper;
 import com.platform.igrejapentecostalreformadaapi.repositories.ContactRepository;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-
-import org.springframework.data.web.PagedResourcesAssembler;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import java.util.Optional;
 import java.util.logging.Logger;
 
 @Service
@@ -22,7 +21,7 @@ public class ContactService {
     private ContactRepository repository;
 
     @Autowired
-    private ModelMapper modelMapper;
+    private ContactMapper mapper;
 
     public List<Contact> findAll() throws Exception {
 
@@ -41,7 +40,7 @@ public class ContactService {
          () -> new ResourceNotFoundException("Contact", "id", id)
          );
 
-         return this.convertEntityToDTO(entity);
+         return this.mapper.convertEntityToVO(entity);
 
      }
 
@@ -49,12 +48,18 @@ public class ContactService {
 
         logger.info("Creating a contact user data");
 
+        Optional<Contact> optionalContact = this.repository.findByUserId(contactVO.getUserId());
+
+        if (optionalContact.isPresent()) {
+            throw new ResourceAlreadyExistsException("Usuário ja possui contato!");
+        }
+
         // Create Contact data
-        Contact contact = this.convertDTOToEntity(contactVO);
+        Contact contact = this.mapper.convertVOToEntity(contactVO);
 
         Contact newContact = this.repository.save(contact);
 
-        return this.convertEntityToDTO(newContact);
+        return this.mapper.convertEntityToVO(newContact);
     }
 
     public ContactVO update(ContactVO contactVO) {
@@ -74,38 +79,22 @@ public class ContactService {
 
         Contact updatedContact = this.repository.save(entity);
 
-        return this.convertEntityToDTO(updatedContact);
-
+        return this.mapper.convertEntityToVO(updatedContact);
 
     }
 
     public ContactVO findByUserId(Long id) {
         logger.info("Finding a contact by Id");
 
-        Contact entity = repository.findByUserId(id).orElseThrow(
-                () -> new ResourceNotFoundException("Contact", "id", id)
-        );
+        Optional<Contact> optionalEntity = repository.findByUserId(id);
 
-        return this.convertEntityToDTO(entity);
+        if (optionalEntity.isEmpty()) {
+            throw new ResourceNotFoundException("Contact", "id", id);
+        }
+
+        Contact entity = optionalEntity.get();
+
+        return this.mapper.convertEntityToVO(entity);
 
     }
-
-
-    //! Mapper methods ---------------------------------------------------------------------------
-    private ContactVO convertEntityToDTO(Contact entity) {
-        return PlatformMapper.parseObject(entity, ContactVO.class, modelMapper);
-    }
-
-    private Contact convertDTOToEntity(ContactVO postDTO) {
-        return PlatformMapper.parseObject(postDTO, Contact.class, modelMapper);
-    }
-
-    private List<ContactVO> convertEntitiesToDTOs(List<Contact> entities) {
-        return PlatformMapper.parseListObjects(entities, ContactVO.class, modelMapper);
-    }
-
-    private List<Contact> convertDTOsToEntities(List<ContactVO> products) {
-        return PlatformMapper.parseListObjects(products, Contact.class, modelMapper);
-    }
-    //! --------------------------------------------------------------------------- Mapper methods
 }

@@ -100,7 +100,7 @@ class ContactRepositoryTest  {
     @Order(4)
     void testGivenContactObject_WhenFindByUserId_ThenReturnUserContact() {
 
-        Contact savedContact = this.repository.save(this.contact);
+        this.repository.save(this.contact);
         Contact findContactByUserId = this.repository.findByUserId(3L).get();
 
         assertNotNull(findContactByUserId);
