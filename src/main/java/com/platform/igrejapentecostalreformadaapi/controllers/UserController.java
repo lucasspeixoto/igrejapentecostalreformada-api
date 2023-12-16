@@ -119,4 +119,49 @@ public class UserController {
         return ResponseEntity.ok(users);
     }
 
+    @GetMapping(value = "/{id}")
+    @Operation(
+            summary = "Get User By Id",
+            description = "Service for get user by id",
+            tags = {"User"},
+            responses = {
+                    @ApiResponse(
+                            description = "Success",
+                            responseCode = "200",
+                            content = {
+                                    @Content(
+                                            mediaType = "application/json",
+                                            array = @ArraySchema(
+                                                    schema = @Schema(implementation = User.class))
+                                    )
+                            }
+                    ),
+                    @ApiResponse(
+                            description = "Bad Request",
+                            responseCode = "400",
+                            content = @Content
+                    ),
+                    @ApiResponse(
+                            description = "Unauthorized",
+                            responseCode = "401",
+                            content = @Content
+                    ),
+                    @ApiResponse(
+                            description = "Not Found",
+                            responseCode = "404",
+                            content = @Content
+                    ),
+                    @ApiResponse(
+                            description = "Internal Server Error",
+                            responseCode = "500",
+                            content = @Content
+                    )
+            }
+    )
+    public ResponseEntity<UserVO> findById(@PathVariable(value = "id") Long id) {
+        UserVO userVO = this.userService.findById(id);
+
+        return ResponseEntity.ok(userVO);
+    }
+
 }

@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.logging.Logger;
 
 @Service
@@ -34,6 +35,15 @@ public class UserService {
         List<User> users = this.repository.findAll();
 
         return this.userMapper.convertEntitiesToVOs(users);
+    }
+
+    public UserVO findById(Long id) {
+
+        User user = this.repository.findById(id).orElseThrow(
+                () -> new ResourceNotFoundException("User", "id", id)
+        );
+
+        return this.userMapper.convertEntityToVO(user);
     }
 
 }
