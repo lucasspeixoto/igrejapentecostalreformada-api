@@ -23,12 +23,11 @@ public class UserProcessService {
     @Autowired
     private UserProcessMapper mapper;
 
-    public List<UserProcess> findAll() throws Exception {
+    public List<UserProcess> findAll() {
 
         logger.info("Finding all user process data!");
 
         return repository.findAll();
-
     }
 
     public UserProcessVO findById(Long id) {
@@ -41,8 +40,17 @@ public class UserProcessService {
          );
 
          return this.mapper.convertEntityToVO(entity);
-
      }
+
+    public UserProcessVO findByUserId(Long id) {
+        logger.info("Finding a user process by Id");
+
+        UserProcess entity = repository.findByUserId(id).orElseThrow(
+                () -> new ResourceNotFoundException("User Process", "id", id)
+        );
+
+        return this.mapper.convertEntityToVO(entity);
+    }
 
     public UserProcessVO create(UserProcessVO userProcessVO) {
 
@@ -58,7 +66,6 @@ public class UserProcessService {
     public UserProcessVO update(UserProcessVO userProcessVO) {
 
         logger.info("Updating a contact user data");
-
 
         var entity = this.repository.findById(userProcessVO.getId()).orElseThrow(
                 () -> new ResourceNotFoundException("User Process", "id", userProcessVO.getId())
@@ -76,18 +83,6 @@ public class UserProcessService {
         UserProcess updatedUserProcess = this.repository.save(entity);
 
         return this.mapper.convertEntityToVO(updatedUserProcess);
-
-    }
-
-    public UserProcessVO findByUserId(Long id) {
-        logger.info("Finding a user process by Id");
-
-        UserProcess entity = repository.findByUserId(id).orElseThrow(
-                () -> new ResourceNotFoundException("User Procecss", "id", id)
-        );
-
-        return this.mapper.convertEntityToVO(entity);
-
     }
 
     /**
