@@ -15,7 +15,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 class ToLowerCaseConverterTest {
 
     @InjectMocks
-    ToLowerCaseConverter toLowerCaseConverter;
+    private ToLowerCaseConverter toLowerCaseConverter;
 
     @DisplayName("JUnit test for LowerCaseConverter converter class convert method")
     @Test

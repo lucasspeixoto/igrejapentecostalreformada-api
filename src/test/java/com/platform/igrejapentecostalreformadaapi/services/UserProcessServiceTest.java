@@ -14,10 +14,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mapstruct.factory.Mappers;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-import org.mockito.Spy;
+import org.mockito.*;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Collections;
@@ -54,7 +51,7 @@ class UserProcessServiceTest {
     private UserProcessMapper userProcessMapper = Mappers.getMapper(UserProcessMapper.class);
 
     @BeforeEach
-    void setUpMocks() throws Exception {
+    void setUpMocks() {
         userInput = new MockUser();
         userProcessInput = new MockUserProcess();
         MockitoAnnotations.openMocks(this);
@@ -108,7 +105,7 @@ class UserProcessServiceTest {
 
     }
 
-    @DisplayName("Given User Process Object when find by user id then return User Object")
+    @DisplayName("Given User Process Object when find by user id then return User Process Object")
     @Test
     void testGivenUserId_WhenFindByUserId_ThenReturnUsersProcessObject() {
 
@@ -130,5 +127,76 @@ class UserProcessServiceTest {
         assertFalse(result.getHasFamily());
         assertFalse(result.getHasMember());
 
+    }
+
+    @DisplayName("Given User Process id when set has contact return User Process with Has Contact as True")
+    @Test
+    void testGivenUserId_WhenSetHasContact_ThenReturnNothing() {
+
+        UserProcess entity = userProcessInput.mockEntity(1);
+
+        entity.setId(1L);
+
+        when(userProcessRepository.findById(1L)).thenReturn(Optional.of(entity));
+        willDoNothing().given(userProcessRepository).setHasContact(1L);
+
+        userProcessService.setHasContact(1L, 1L);
+
+        verify(userProcessRepository, times(1)).setHasContact(1L);
+    }
+
+
+    @DisplayName("Given User Process Object when update then return UserProcess Object")
+    @Test
+    void testGivenUserProcess_WhenUpdate_ThenReturnUserProcessObject() {
+
+        UserProcess entity = userProcessInput.mockEntity(1);
+
+        entity.setId(1L);
+        entity.setId(1L);
+
+        UserProcessVO vo = this.userProcessMapper.convertEntityToVO(entity);
+
+        given(userProcessRepository.findById(1L)).willReturn(Optional.of(entity));
+
+        vo.setHasBaptism(true);
+        vo.setHasMember(true);
+
+        given(userProcessRepository.save(entity)).willReturn(entity);
+
+        UserProcessVO result = userProcessService.update(vo);
+
+        assertTrue(result.getHasBaptism());
+        assertFalse(result.getHasContact());
+        assertFalse(result.getHasDocument());
+        assertFalse(result.getHasEducation());
+        assertFalse(result.getHasFamily());
+        assertTrue(result.getHasMember());
+    }
+
+    @DisplayName("Given User Process Object when create then return UserProcess Object")
+    @Test
+    void testGivenUserProcess_WhenCreate_ThenReturnUserProcessObject() {
+
+        UserProcess entity = userProcessInput.mockEntity(1);
+
+        entity.setId(1L);
+        entity.setId(1L);
+
+        UserProcessVO vo = this.userProcessMapper.convertEntityToVO(entity);
+
+        given(userProcessRepository.findByUserId(1L)).willReturn(Optional.of(entity));
+        given(userProcessRepository.save(entity)).willReturn(entity);
+
+        UserProcessVO result = userProcessService.create(vo);
+
+        assertNotNull(result);
+        assertTrue(result.getId() > 0);
+        assertFalse(result.getHasBaptism());
+        assertFalse(result.getHasContact());
+        assertFalse(result.getHasDocument());
+        assertFalse(result.getHasEducation());
+        assertFalse(result.getHasFamily());
+        assertFalse(result.getHasMember());
     }
 }

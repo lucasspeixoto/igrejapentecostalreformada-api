@@ -2,6 +2,7 @@ package com.platform.igrejapentecostalreformadaapi.services;
 
 import com.platform.igrejapentecostalreformadaapi.data.vo.UserProcessVO;
 import com.platform.igrejapentecostalreformadaapi.entities.UserProcess;
+import com.platform.igrejapentecostalreformadaapi.exceptions.ResourceAlreadyExistsException;
 import com.platform.igrejapentecostalreformadaapi.exceptions.ResourceNotFoundException;
 import com.platform.igrejapentecostalreformadaapi.mapper.UserProcessMapper;
 import com.platform.igrejapentecostalreformadaapi.repositories.UserProcessRepository;
@@ -55,6 +56,11 @@ public class UserProcessService {
     public UserProcessVO create(UserProcessVO userProcessVO) {
 
         logger.info("Creating a user process data");
+
+        this.repository.findByUserId(userProcessVO.getUserId()).orElseThrow(
+                () -> new ResourceAlreadyExistsException("User already has a process registered")
+        );
+
 
         UserProcess userProcess = this.mapper.convertVOToEntity(userProcessVO);
 

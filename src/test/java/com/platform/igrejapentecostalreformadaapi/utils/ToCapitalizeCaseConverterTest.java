@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class ToCapitalizeCaseConverterTest {
 
     @InjectMocks
-    ToCapitalizeCaseConverter toCapitalizeCaseConverter;
+    private ToCapitalizeCaseConverter toCapitalizeCaseConverter;
 
     @DisplayName("JUnit test for CapitalizeCaseConverter converter class convert method")
     @Test
