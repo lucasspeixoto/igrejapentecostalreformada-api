@@ -27,7 +27,7 @@ class UserRepositoryTest {
 
     @BeforeEach
     public void configs() {
-        this.user = new User("Lucas Sacramoni Peixoto", "lspeixotodev", "lspeixotodev@gmail.com", "1234");
+        this.user = new User("Lucas Peixoto", "lspeixotodev", "lspeixotodev@gmail.com", "1234");
     }
 
     @DisplayName("Given User List when find all then return User List")
@@ -59,6 +59,6 @@ class UserRepositoryTest {
         User findedUser = user.get();
 
         assertNotNull(findedUser);
-        assertEquals("Lucas Sacramoni Peixoto", findedUser.getName());
+        assertEquals("Lucas Peixoto", findedUser.getName());
     }
 }
