@@ -8,7 +8,7 @@ on:
 
 jobs:
   build:
-    name: 🏭 CI
+    name: Continuous Integration
     runs-on: ubuntu-latest
     steps:
       - name: 📑 Checkout code
@@ -21,22 +21,22 @@ jobs:
           java-version: '17'
           cache: maven
 
-      - name: 🏭 Build Application JAR
+      - name: 🏗️ Build App JAR
         run: mvn clean package
 
       - name: 🐋 Docker Compose Build
         run: docker compose build
 
-      - name: 📈 Log in to Docker Hub
+      - name: 🐋 Log in to Docker Hub
         uses: docker/login-action@v3
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
-      - name: 📝 Build and tag Image
+      - name: 🏗️ Build e tag da Imagem
         run: docker build -t ${{ secrets.DOCKER_USERNAME }}/igrejapentecostalreformada-api:${{ github.run_id }} .
 
-      - name: 📤 Push Image to Docker Hub
+      - name: 🐳 Push Docker image
         run: docker push ${{ secrets.DOCKER_USERNAME }}/igrejapentecostalreformada-api:${{ github.run_id }}
 
 
