@@ -34,9 +34,9 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: 📝 Build and tag Image
-        run: docker build -t ${{ secrets.DOCKER_USERNAME }}/igrejapentecostalreformada-api:latest .
+        run: docker build -t ${{ secrets.DOCKER_USERNAME }}/igrejapentecostalreformada-api:${{ github.run_id }} .
 
       - name: 📤 Push Image to Docker Hub
-        run: docker push ${{ secrets.DOCKER_USERNAME }}/igrejapentecostalreformada-api:latest
+        run: docker push ${{ secrets.DOCKER_USERNAME }}/igrejapentecostalreformada-api:${{ github.run_id }}
 
 
