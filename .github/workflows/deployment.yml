@@ -29,8 +29,10 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
-      - name: Push Mysql Image to Docker Hub
-        run: docker push ${{ secrets.DOCKER_USERNAME }}/mysql:8.2.0
-
       - name: Push Api Image to Docker Hub
         run: docker push ${{ secrets.DOCKER_USERNAME }}/igrejapentecostalreformada-api:latest
+
+      - name: Push Mysql Image to Docker Hub
+        run: docker push mysql:8.2.0
+
+
