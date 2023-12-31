@@ -1,4 +1,4 @@
-name: Build SpringBoot app and database
+name: Continuous Integration
 
 on:
   push:
@@ -8,7 +8,7 @@ on:
 
 jobs:
   build:
-    name: 🏭 Building
+    name: 🏭 CI
     runs-on: ubuntu-latest
     steps:
       - name: 📑 Checkout code
@@ -19,9 +19,13 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: '17'
+          cache: maven
 
-      - name: 🏭 Build Project
-        run: mvn clean install -DskipTests
+      - name: 🏭 Build Application JAR
+        run: mvn clean package -DskipTests
+
+      - name: 🐋 Docker Compose Build
+        run: docker compose build
 
       - name: 📈 Log in to Docker Hub
         uses: docker/login-action@v3
@@ -29,16 +33,10 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
-      - name: Build and tag Api Image
+      - name: 📝 Build and tag Image
         run: docker build -t ${{ secrets.DOCKER_USERNAME }}/igrejapentecostalreformada-api:latest .
 
-      - name: Push Api Image to Docker Hub
+      - name: 📤 Push Image to Docker Hub
         run: docker push ${{ secrets.DOCKER_USERNAME }}/igrejapentecostalreformada-api:latest
-
-      - name: Build and tag Mysql Image
-        run: docker build -t mysql:8.2.0 .
-
-      - name: Push Mysql Image to Docker Hub
-        run: docker push mysql:8.2.0
 
 
