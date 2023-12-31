@@ -31,6 +31,14 @@ public class ContactVO implements Serializable {
 
     private Long userId;
 
+    public ContactVO(Date birthday, String cellphone, String telephone, String sex, Long userId) {
+        this.birthday = birthday;
+        this.cellphone = cellphone;
+        this.telephone = telephone;
+        this.sex = sex;
+        this.userId = userId;
+    }
+
     public Long getUserId() {
         return userId;
     }

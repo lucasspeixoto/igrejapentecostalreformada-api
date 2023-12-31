@@ -1,33 +1,40 @@
 package com.platform.igrejapentecostalreformadaapi.data.vo;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.platform.igrejapentecostalreformadaapi.utils.ToCapitalizeCaseConverter;
+import com.platform.igrejapentecostalreformadaapi.utils.ToLowerCaseConverter;
+
 import java.util.Objects;
-import java.util.UUID;
 
 public class UserVO {
 
-    private UUID id;
+    private Long id;
 
+    @JsonSerialize(converter = ToCapitalizeCaseConverter.class)
     private String name;
 
+    @JsonSerialize(converter = ToLowerCaseConverter.class)
     private String username;
 
+    @JsonSerialize(converter = ToLowerCaseConverter.class)
     private String email;
 
     public UserVO() {
     }
 
-    public UserVO(UUID id, String name, String username, String email) {
+    public UserVO(Long id, String name, String username, String email) {
         this.id = id;
         this.name = name;
         this.username = username;
         this.email = email;
     }
 
-    public UUID getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(UUID id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

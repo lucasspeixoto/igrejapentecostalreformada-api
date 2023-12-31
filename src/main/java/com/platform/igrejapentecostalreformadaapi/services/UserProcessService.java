@@ -1,14 +1,12 @@
 package com.platform.igrejapentecostalreformadaapi.services;
 
-import com.platform.igrejapentecostalreformadaapi.data.vo.ContactVO;
 import com.platform.igrejapentecostalreformadaapi.data.vo.UserProcessVO;
-import com.platform.igrejapentecostalreformadaapi.entities.Contact;
 import com.platform.igrejapentecostalreformadaapi.entities.UserProcess;
+import com.platform.igrejapentecostalreformadaapi.exceptions.ResourceAlreadyExistsException;
 import com.platform.igrejapentecostalreformadaapi.exceptions.ResourceNotFoundException;
-import com.platform.igrejapentecostalreformadaapi.mapper.PlatformMapper;
+import com.platform.igrejapentecostalreformadaapi.mapper.UserProcessMapper;
 import com.platform.igrejapentecostalreformadaapi.repositories.UserProcessRepository;
 import jakarta.transaction.Transactional;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,17 +22,16 @@ public class UserProcessService {
     private UserProcessRepository repository;
 
     @Autowired
-    private ModelMapper modelMapper;
+    private UserProcessMapper mapper;
 
-    public List<UserProcess> findAll() throws Exception {
+    public List<UserProcess> findAll() {
 
         logger.info("Finding all user process data!");
 
         return repository.findAll();
-
     }
 
-     public UserProcessVO findById(Long id) {
+    public UserProcessVO findById(Long id) {
          logger.info("Finding a user process by Id");
 
          UserProcess entity = repository
@@ -43,26 +40,38 @@ public class UserProcessService {
          () -> new ResourceNotFoundException("User Process", "id", id)
          );
 
-         return this.convertEntityToDTO(entity);
-
+         return this.mapper.convertEntityToVO(entity);
      }
+
+    public UserProcessVO findByUserId(Long id) {
+        logger.info("Finding a user process by Id");
+
+        UserProcess entity = repository.findByUserId(id).orElseThrow(
+                () -> new ResourceNotFoundException("User Process", "id", id)
+        );
+
+        return this.mapper.convertEntityToVO(entity);
+    }
 
     public UserProcessVO create(UserProcessVO userProcessVO) {
 
-        logger.info("Creating a contact user data");
+        logger.info("Creating a user process data");
 
-        // Create Contact data
-        UserProcess userProcess = this.convertDTOToEntity(userProcessVO);
+        this.repository.findByUserId(userProcessVO.getUserId()).orElseThrow(
+                () -> new ResourceAlreadyExistsException("User already has a process registered")
+        );
+
+
+        UserProcess userProcess = this.mapper.convertVOToEntity(userProcessVO);
 
         UserProcess newUserProcess = this.repository.save(userProcess);
 
-        return this.convertEntityToDTO(newUserProcess);
+        return this.mapper.convertEntityToVO(newUserProcess);
     }
 
     public UserProcessVO update(UserProcessVO userProcessVO) {
 
         logger.info("Updating a contact user data");
-
 
         var entity = this.repository.findById(userProcessVO.getId()).orElseThrow(
                 () -> new ResourceNotFoundException("User Process", "id", userProcessVO.getId())
@@ -79,19 +88,7 @@ public class UserProcessService {
 
         UserProcess updatedUserProcess = this.repository.save(entity);
 
-        return this.convertEntityToDTO(updatedUserProcess);
-
-    }
-
-    public UserProcessVO findByUserId(Long id) {
-        logger.info("Finding a user process by Id");
-
-        UserProcess entity = repository.findByUserId(id).orElseThrow(
-                () -> new ResourceNotFoundException("User Procecss", "id", id)
-        );
-
-        return this.convertEntityToDTO(entity);
-
+        return this.mapper.convertEntityToVO(updatedUserProcess);
     }
 
     /**
@@ -109,26 +106,7 @@ public class UserProcessService {
                 () -> new ResourceNotFoundException("User Process", "id", id)
         );
 
-        return this.convertEntityToDTO(entity);
+        return this.mapper.convertEntityToVO(entity);
 
     }
-
-
-    //! Mapper methods ---------------------------------------------------------------------------
-    private UserProcessVO convertEntityToDTO(UserProcess entity) {
-        return PlatformMapper.parseObject(entity, UserProcessVO.class, modelMapper);
-    }
-
-    private UserProcess convertDTOToEntity(UserProcessVO userProcessVO) {
-        return PlatformMapper.parseObject(userProcessVO, UserProcess.class, modelMapper);
-    }
-
-    private List<UserProcessVO> convertEntitiesToDTOs(List<UserProcess> entities) {
-        return PlatformMapper.parseListObjects(entities, UserProcessVO.class, modelMapper);
-    }
-
-    private List<Contact> convertDTOsToEntities(List<ContactVO> products) {
-        return PlatformMapper.parseListObjects(products, Contact.class, modelMapper);
-    }
-    //! --------------------------------------------------------------------------- Mapper methods
 }

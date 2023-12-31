@@ -31,6 +31,7 @@ public class Contact {
     @UpdateTimestamp
     private Date updatedAt;
 
+
     @Column(name="user_id", nullable = false, unique = true)
     private Long userId;
 
