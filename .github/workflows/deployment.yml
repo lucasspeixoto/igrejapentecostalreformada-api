@@ -1,0 +1,14 @@
+name: Build SpringBoot app and database
+
+on:
+  push:
+    branches: ["master", "main"]
+  pull_request:
+    branches: ["master", "main"]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 📝 Checkout code
+      - uses: actions/checkout@v3
