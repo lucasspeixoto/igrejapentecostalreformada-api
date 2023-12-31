@@ -29,8 +29,14 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
+      - name: Build and tag Api Image
+        run: docker build -t ${{ secrets.DOCKER_USERNAME }}/igrejapentecostalreformada-api:latest .
+
       - name: Push Api Image to Docker Hub
         run: docker push ${{ secrets.DOCKER_USERNAME }}/igrejapentecostalreformada-api:latest
+
+      - name: Build and tag Mysql Image
+        run: docker build -t mysql:8.2.0 .
 
       - name: Push Mysql Image to Docker Hub
         run: docker push mysql:8.2.0
