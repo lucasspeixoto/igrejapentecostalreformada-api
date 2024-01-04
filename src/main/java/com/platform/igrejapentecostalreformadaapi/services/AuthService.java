@@ -10,6 +10,7 @@ import com.platform.igrejapentecostalreformadaapi.exceptions.PlatformException;
 import com.platform.igrejapentecostalreformadaapi.repositories.RoleRepository;
 import com.platform.igrejapentecostalreformadaapi.repositories.UserRepository;
 import com.platform.igrejapentecostalreformadaapi.security.JwtTokenProvider;
+import com.platform.igrejapentecostalreformadaapi.utils.Messages;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -51,7 +52,7 @@ public class AuthService {
     public String login(@Valid LoginVO loginVO) {
 
         if (!userRepository.existsByUsername(loginVO.getUsernameOrEmail())) {
-            throw new PlatformException(HttpStatus.FORBIDDEN,"Username or Email does not exists!");
+            throw new PlatformException(HttpStatus.FORBIDDEN, Messages.LOGIN_EMAIL_PASSWORD_MESSAGE);
         }
 
         Authentication authentication = authenticationManager
@@ -69,12 +70,12 @@ public class AuthService {
 
         // Check if this user already exists
         if (userRepository.existsByUsername(registerVO.getUsername())) {
-            throw new PlatformException(HttpStatus.FORBIDDEN,  "Username is already exists!");
+            throw new PlatformException(HttpStatus.FORBIDDEN, Messages.REGISTER_ALREADY_EXISTS_EMAIL_MESSAGE);
         }
 
         // Check if this user email already exists
         if (userRepository.existsByEmail(registerVO.getEmail())) {
-            throw new PlatformException(HttpStatus.FORBIDDEN, "Email is already exists!");
+            throw new PlatformException(HttpStatus.FORBIDDEN, Messages.REGISTER_ALREADY_EXISTS_USERNAME_MESSAGE);
         }
 
         User user = new User();
@@ -96,14 +97,16 @@ public class AuthService {
             this.createStartedUserProcess(user);
 
             //return "User registered successfully!.";
+            HttpStatus status = HttpStatus.CREATED;
+
             return new PlatformResponse(
-                    201,
-                    "User registered successfully!.",
+                    status.value(),
+                    Messages.REGISTER_SUCCESS_MESSAGE,
                     Instant.now(),
-                    "Welcome to the IPR Platform.");
+                    Messages.REGISTER_SUCCESS_DETAIL);
 
         } else {
-            throw new PlatformException(HttpStatus.NOT_FOUND,"User role not found!" );
+            throw new PlatformException(HttpStatus.NOT_FOUND, "User role not found!");
         }
     }
 

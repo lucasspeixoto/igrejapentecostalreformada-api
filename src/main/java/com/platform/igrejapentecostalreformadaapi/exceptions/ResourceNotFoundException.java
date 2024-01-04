@@ -1,5 +1,6 @@
 package com.platform.igrejapentecostalreformadaapi.exceptions;
 
+import com.platform.igrejapentecostalreformadaapi.utils.Messages;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
@@ -20,7 +21,7 @@ public class ResourceNotFoundException extends RuntimeException {
     private final Long fieldValue;
 
     public ResourceNotFoundException(String resourceName, String fieldName, Long fieldValue) {
-        super(String.format("%s not found with %s : '%s'", resourceName, fieldName, fieldValue));
+        super(String.format("%s %s %s : '%s'", resourceName, Messages.NOT_FOUND_MESSAGE, fieldName, fieldValue));
         this.resourceName = resourceName;
         this.fieldName = fieldName;
         this.fieldValue = fieldValue;

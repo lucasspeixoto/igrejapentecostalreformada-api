@@ -6,6 +6,8 @@ import com.platform.igrejapentecostalreformadaapi.exceptions.ResourceAlreadyExis
 import com.platform.igrejapentecostalreformadaapi.exceptions.ResourceNotFoundException;
 import com.platform.igrejapentecostalreformadaapi.mapper.ContactMapper;
 import com.platform.igrejapentecostalreformadaapi.repositories.ContactRepository;
+import com.platform.igrejapentecostalreformadaapi.utils.Messages;
+import org.mapstruct.ap.internal.util.Message;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -51,7 +53,7 @@ public class ContactService {
         Optional<Contact> optionalContact = this.repository.findByUserId(contactVO.getUserId());
 
         if (optionalContact.isPresent()) {
-            throw new ResourceAlreadyExistsException("Usuário ja possui contato!");
+            throw new ResourceAlreadyExistsException(Messages.CONTACT_IS_PRESENT_MESSAGE);
         }
 
         // Create Contact data

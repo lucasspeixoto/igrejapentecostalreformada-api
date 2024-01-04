@@ -56,13 +56,11 @@ public class SecurityConfig {
                 .authorizeHttpRequests(
                         (authorize) ->
                                 authorize
-                                        .requestMatchers(HttpMethod.POST, "/api/v1/auth/**").permitAll()
-                                        .requestMatchers(HttpMethod.GET, "/api/v1/**").permitAll()
+                                        .requestMatchers(HttpMethod.POST, "/auth/**").permitAll()
                                         .requestMatchers(
                                                 "/swagger-ui/**",
                                                 "/v3/api-docs/**"
                                         ).permitAll()
-
                                         .anyRequest().authenticated()
                 ).exceptionHandling(exception -> exception
                         .authenticationEntryPoint(authenticationEntryPoint)

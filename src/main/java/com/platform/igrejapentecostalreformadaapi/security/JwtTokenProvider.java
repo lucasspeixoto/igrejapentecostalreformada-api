@@ -20,8 +20,8 @@ public class JwtTokenProvider {
     @Value("${security.jwt.token.secret-key:secret}")
     private String jwtSecret;
 
-    @Value("${security.jwt.token.expire-length:604800000}")
-    private long jwtExpirationDate;
+    @Value("${security.jwt.token.expire-length:5000}")
+    private long jwtExpirationDate = 5000;
 
     // generate JWT token
     public String generateToken(Authentication authentication) {

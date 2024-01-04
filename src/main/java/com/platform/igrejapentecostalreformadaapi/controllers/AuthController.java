@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(value = "/api/v1/auth", produces = MediaType.APPLICATION_JSON)
+@RequestMapping(value = "/auth", produces = MediaType.APPLICATION_JSON)
 @Tag(name = "Authentication", description = "Endpoints for Login and Register")
 public class AuthController {
 
@@ -32,7 +32,7 @@ public class AuthController {
     @Autowired
     private UserService userService;
 
-    @PostMapping(value = "/login")
+    @PostMapping(value = "/login", produces = {MediaType.APPLICATION_JSON})
     @Operation(
             summary = "Login in the app",
             description = "Service login the user",

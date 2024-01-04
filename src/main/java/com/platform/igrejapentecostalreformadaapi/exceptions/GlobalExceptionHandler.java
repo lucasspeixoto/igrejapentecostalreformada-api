@@ -2,10 +2,12 @@ package com.platform.igrejapentecostalreformadaapi.exceptions;
 
 import com.platform.igrejapentecostalreformadaapi.data.vo.ErrorDetails;
 import com.platform.igrejapentecostalreformadaapi.utils.MediaType;
+import io.jsonwebtoken.ExpiredJwtException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -64,18 +66,40 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
                 .body(errorDetails);
     }
 
-    @ExceptionHandler(PlatformException.class)
-    public ResponseEntity<ErrorDetails> handlePlatformException(
+    @ExceptionHandler({PlatformException.class})
+    public ResponseEntity<ErrorDetails> handlePlatformExceptionException(
             PlatformException exception,
             WebRequest webRequest
     ) {
 
-        HttpStatus status = HttpStatus.BAD_REQUEST;
+        HttpStatus status = exception.getStatus();
 
         ErrorDetails errorDetails = new ErrorDetails(
                 Instant.now(),
                 exception.getMessage(),
                 webRequest.getDescription(false),
+                status.value()
+        );
+
+        return ResponseEntity
+                .status(status)
+                .contentType(org.springframework.http.MediaType.valueOf(MediaType.APPLICATION_JSON))
+                .body(errorDetails);
+    }
+
+    // Resource https://www.baeldung.com/spring-security-exceptionhandler
+    @ExceptionHandler({AuthenticationException.class})
+    public ResponseEntity<ErrorDetails> handleAuthenticationException(
+            AuthenticationException exception,
+            WebRequest webRequest
+    ) {
+
+        HttpStatus status = HttpStatus.UNAUTHORIZED;
+
+        ErrorDetails errorDetails = new ErrorDetails(
+                Instant.now(),
+                "Falha na autenticação",
+                "Está operação só pode ser acessada com requisitos de administrador!",
                 status.value()
         );
 
