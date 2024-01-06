@@ -1,12 +1,15 @@
 package com.platform.igrejapentecostalreformadaapi.unittests.mapper.mocks;
 
 import com.platform.igrejapentecostalreformadaapi.data.vo.UserProcessVO;
+import com.platform.igrejapentecostalreformadaapi.entities.User;
 import com.platform.igrejapentecostalreformadaapi.entities.UserProcess;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class MockUserProcess {
+
+    MockUser userInput;
 
     public UserProcess mockEntity() {
         return mockEntity(0);
@@ -17,50 +20,51 @@ public class MockUserProcess {
     }
 
     public List<UserProcess> mockEntityList() {
-        List<UserProcess> users = new ArrayList<>();
+        List<UserProcess> userProcess = new ArrayList<>();
 
         for (int i = 0; i < 14; i++) {
-            users.add(mockEntity(i));
+            userProcess.add(mockEntity(i));
         }
-        return users;
+        return userProcess;
     }
 
     public List<UserProcessVO> mockVOList() {
-        List<UserProcessVO> users = new ArrayList<>();
+        List<UserProcessVO> userProcess = new ArrayList<>();
         for (int i = 0; i < 14; i++) {
-            users.add(mockVO(i));
+            userProcess.add(mockVO(i));
         }
-        return users;
+        return userProcess;
     }
 
     public UserProcess mockEntity(Integer number) {
-        UserProcess user = new UserProcess();
-        user.setId(number.longValue());
-        user.setUserId(number.longValue());
 
-        user.setHasBaptism(false);
-        user.setHasContact(false);
-        user.setHasDocument(false);
-        user.setHasEducation(false);
-        user.setHasFamily(false);
-        user.setHasMember(false);
+        UserProcess userProcess = new UserProcess();
 
-        return user;
+        userProcess.setId(number.longValue());
+        userProcess.setHasBaptism(false);
+        userProcess.setHasContact(false);
+        userProcess.setHasDocument(false);
+        userProcess.setHasEducation(false);
+        userProcess.setHasFamily(false);
+        userProcess.setHasMember(false);
+
+        return userProcess;
     }
 
     public UserProcessVO mockVO(Integer number) {
-        UserProcessVO user = new UserProcessVO();
-        user.setId(number.longValue());
-        user.setUserId(number.longValue());
+        UserProcessVO userProcess = new UserProcessVO();
+        User user = new User(1L, "Lucas Peixoto", "lspeixotodev", "lspeixotodev@gmail.com", "1234");
 
-        user.setHasBaptism(false);
-        user.setHasContact(false);
-        user.setHasDocument(false);
-        user.setHasEducation(false);
-        user.setHasFamily(false);
-        user.setHasMember(false);
+        userProcess.setUser(user);
+        userProcess.setId(number.longValue());
+        userProcess.setHasBaptism(false);
+        userProcess.setHasContact(false);
+        userProcess.setHasDocument(false);
+        userProcess.setHasEducation(false);
+        userProcess.setHasFamily(false);
+        userProcess.setHasMember(false);
 
-        return user;
+        return userProcess;
     }
 
 }

@@ -19,6 +19,7 @@ spring:
     username: root
     password: lucasadmin3010
   jpa:
+    generate-ddl: true
     hibernate:
       ddl-auto: none
     properties:
@@ -27,6 +28,8 @@ spring:
     show-sql: false
   flyway:
     enabled: true
+  jackson:
+    time-zone: America/Sao_Paulo
 springdoc:
   pathsToMatch:
     - /api/v1/**/

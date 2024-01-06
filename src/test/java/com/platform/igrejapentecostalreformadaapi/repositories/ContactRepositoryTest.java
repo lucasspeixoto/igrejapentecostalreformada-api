@@ -1,8 +1,10 @@
 package com.platform.igrejapentecostalreformadaapi.repositories;
-import com.platform.igrejapentecostalreformadaapi.entities.Contact;
+
+import com.platform.igrejapentecostalreformadaapi.entities.userForms.Contact;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import com.platform.igrejapentecostalreformadaapi.entities.User;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,10 +22,10 @@ import java.util.List;
  * para realização dos testes, neste caso o h2-database.
  * O @DataJpaTest não carrega outros beans do Spring
  * como @Components, @Controller ou @Service
-
+ * <p>
  * Por padrão ele procura por classes @Entity e configura
  * os repositórios do Spring Data JPA anotados com @Repository
-
+ * <p>
  * Por padrão os testes anotados com @DataJpaTest são transacionais,
  * ou seja, são revertidos ao final de cada teste
  */
@@ -33,12 +35,14 @@ import java.util.List;
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @DisplayName("Contact repository tests")
-class ContactRepositoryTest  {
-
-    public Contact contact;
+class ContactRepositoryTest {
 
     @Autowired
     private ContactRepository repository;
+
+    public Contact contact;
+
+    public static User user;
 
     public static SimpleDateFormat simpleDateFormat;
 
@@ -48,9 +52,10 @@ class ContactRepositoryTest  {
     }
 
     @BeforeEach
-    public void configs() throws ParseException {
+    public void config() throws ParseException {
         Date birthday = simpleDateFormat.parse("30/10/1991");
-        this.contact = new Contact("Masculino",  "19982621117", "19982621117",birthday, 3L);
+
+        this.contact = new Contact("Masculino", "19982621117", "19982621117", birthday, null);
     }
 
     @DisplayName("Given Contact List when find all then return Contact List")
@@ -58,10 +63,10 @@ class ContactRepositoryTest  {
     @Order(1)
     void testGivenContactList_WhenFindAll_ThenReturnContactList() throws ParseException {
         Date firstContactBirthday = simpleDateFormat.parse("30/10/1991");
-        Contact firstContact = new Contact("Masculino",  "199982621117", "199982621117",firstContactBirthday, 3L);
+        Contact firstContact = new Contact("Masculino", "199982621117", "199982621117", firstContactBirthday, this.user);
 
         Date secondContactBirthday = simpleDateFormat.parse("10/02/1994");
-        Contact secondContact = new Contact("Feminino",  "19981448980", "19981448980",secondContactBirthday, 4L);
+        Contact secondContact = new Contact("Feminino", "19981448980", "19981448980", secondContactBirthday, this.user);
 
         repository.save(firstContact);
         repository.save(secondContact);
@@ -101,16 +106,13 @@ class ContactRepositoryTest  {
     void testGivenContactObject_WhenFindByUserId_ThenReturnUserContact() {
 
         this.repository.save(this.contact);
-        Contact findContactByUserId = this.repository.findByUserId(3L).get();
+        Contact findContactByUserId = this.repository.findByUserId(1L).get();
 
         assertNotNull(findContactByUserId);
         assertTrue(findContactByUserId.getId() > 0);
-        assertEquals(3L, findContactByUserId.getUserId());
+        assertEquals(1L, findContactByUserId.getUserId());
         assertEquals("Masculino", findContactByUserId.getSex());
         assertEquals("19982621117", findContactByUserId.getCellphone());
         assertEquals("19982621117", findContactByUserId.getTelephone());
     }
-
-
-
 }

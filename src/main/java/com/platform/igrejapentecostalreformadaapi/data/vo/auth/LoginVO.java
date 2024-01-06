@@ -1,4 +1,4 @@
-package com.platform.igrejapentecostalreformadaapi.data.vo;
+package com.platform.igrejapentecostalreformadaapi.data.vo.auth;
 
 import java.util.Objects;
 

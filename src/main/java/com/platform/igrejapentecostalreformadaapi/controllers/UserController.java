@@ -74,6 +74,7 @@ public class UserController {
         return ResponseEntity.ok(userVO);
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping(
             produces = {MediaType.APPLICATION_JSON}
     )
@@ -121,6 +122,7 @@ public class UserController {
         return ResponseEntity.ok(users);
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping(value = "/{id}")
     @Operation(
             summary = "Get User By Id",

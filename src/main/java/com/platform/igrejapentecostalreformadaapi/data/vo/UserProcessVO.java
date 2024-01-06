@@ -1,6 +1,8 @@
 package com.platform.igrejapentecostalreformadaapi.data.vo;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.platform.igrejapentecostalreformadaapi.entities.User;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -28,15 +30,40 @@ public class UserProcessVO implements Serializable {
 
     private boolean hasBaptism;
 
-    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone="America/Sao_Paulo")
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "America/Sao_Paulo")
     private Date createdAt;
 
-    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone="America/Sao_Paulo")
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "America/Sao_Paulo")
     private Date updatedAt;
 
-    private Long userId;
+    @JsonIgnore
+    private User user;
 
     public UserProcessVO() {
+    }
+
+    public UserProcessVO(boolean hasContact, boolean hasAddress, boolean hasDocument, boolean hasFamily, boolean hasEducation, boolean hasMember, boolean hasBaptism, Date createdAt, Date updatedAt) {
+        this.hasContact = hasContact;
+        this.hasAddress = hasAddress;
+        this.hasDocument = hasDocument;
+        this.hasFamily = hasFamily;
+        this.hasEducation = hasEducation;
+        this.hasMember = hasMember;
+        this.hasBaptism = hasBaptism;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+    }
+
+    public Long getUserId() {
+        return this.user.getId();
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public Long getId() {
@@ -117,14 +144,6 @@ public class UserProcessVO implements Serializable {
 
     public void setUpdatedAt(Date updatedAt) {
         this.updatedAt = updatedAt;
-    }
-
-    public Long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Long userId) {
-        this.userId = userId;
     }
 
     @Override

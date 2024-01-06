@@ -1,13 +1,16 @@
-package com.platform.igrejapentecostalreformadaapi.data.vo;
+package com.platform.igrejapentecostalreformadaapi.data.vo.userForms;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.platform.igrejapentecostalreformadaapi.entities.User;
+
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
 
-@JsonPropertyOrder({"id", "birthday", "cellphone", "telephone", "sex",  "created_at", "cellphone", "user_id"})
+@JsonPropertyOrder({"id", "birthday", "cellphone", "telephone", "sex",  "created_at", "cellphone"})
 public class ContactVO implements Serializable {
 
     @Serial
@@ -29,22 +32,26 @@ public class ContactVO implements Serializable {
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone="America/Sao_Paulo")
     private Date updatedAt;
 
-    private Long userId;
+    @JsonIgnore
+    private User user;
 
-    public ContactVO(Date birthday, String cellphone, String telephone, String sex, Long userId) {
+    public ContactVO(Date birthday, String cellphone, String telephone, String sex) {
         this.birthday = birthday;
         this.cellphone = cellphone;
         this.telephone = telephone;
         this.sex = sex;
-        this.userId = userId;
     }
 
     public Long getUserId() {
-        return userId;
+        return this.user.getId();
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public Long getId() {

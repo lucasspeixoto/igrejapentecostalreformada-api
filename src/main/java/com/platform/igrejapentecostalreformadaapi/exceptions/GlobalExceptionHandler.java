@@ -99,7 +99,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         ErrorDetails errorDetails = new ErrorDetails(
                 Instant.now(),
                 "Falha na autenticação",
-                "Está operação só pode ser acessada com requisitos de administrador!",
+                "Acesso expirado ou solicitação não permitida!",
                 status.value()
         );
 

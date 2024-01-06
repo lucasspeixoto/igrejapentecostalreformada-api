@@ -1,8 +1,8 @@
 package com.platform.igrejapentecostalreformadaapi.services;
 
 import com.platform.igrejapentecostalreformadaapi.data.response.PlatformResponse;
-import com.platform.igrejapentecostalreformadaapi.data.vo.LoginVO;
-import com.platform.igrejapentecostalreformadaapi.data.vo.RegisterVO;
+import com.platform.igrejapentecostalreformadaapi.data.vo.auth.LoginVO;
+import com.platform.igrejapentecostalreformadaapi.data.vo.auth.RegisterVO;
 import com.platform.igrejapentecostalreformadaapi.data.vo.UserProcessVO;
 import com.platform.igrejapentecostalreformadaapi.entities.Role;
 import com.platform.igrejapentecostalreformadaapi.entities.User;
@@ -111,12 +111,12 @@ public class AuthService {
     }
 
     private void createStartedUserProcess(User user) {
-        User entity = userRepository.save(user);
+        this.userRepository.save(user);
 
         UserProcessVO startUserProcess = new UserProcessVO();
 
-        startUserProcess.setUserId(entity.getId());
+        Long userId = user.getId();
 
-        this.userProcessService.create(startUserProcess);
+        this.userProcessService.create(startUserProcess, userId);
     }
 }

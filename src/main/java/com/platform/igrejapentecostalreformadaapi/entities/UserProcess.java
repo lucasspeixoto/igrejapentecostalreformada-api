@@ -1,5 +1,6 @@
 package com.platform.igrejapentecostalreformadaapi.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
@@ -16,43 +17,47 @@ public class UserProcess {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name="has_contact", nullable = false)
+    @Column(name = "has_contact", nullable = false)
     private boolean hasContact;
 
-    @Column(name="has_address", nullable = false)
+    @Column(name = "has_address", nullable = false)
     private boolean hasAddress;
 
-    @Column(name="has_document", nullable = false)
+    @Column(name = "has_document", nullable = false)
     private boolean hasDocument;
 
-    @Column(name="has_family", nullable = false)
+    @Column(name = "has_family", nullable = false)
     private boolean hasFamily;
 
-    @Column(name="has_education", nullable = false)
+    @Column(name = "has_education", nullable = false)
     private boolean hasEducation;
 
-    @Column(name="has_member", nullable = false)
+    @Column(name = "has_member", nullable = false)
     @ColumnDefault("false")
     private boolean hasMember;
 
-    @Column(name="has_baptism", nullable = false)
+    @Column(name = "has_baptism", nullable = false)
     private boolean hasBaptism;
 
-    @Column(name="created_at", nullable = false, updatable = false)
+    @Column(name = "created_at", nullable = false, updatable = false)
     @CreationTimestamp
     private Date createdAt;
 
-    @Column(name="updated_at", nullable = false)
+    @Column(name = "updated_at", nullable = false)
     @UpdateTimestamp
     private Date updatedAt;
 
-    @Column(name="user_id", nullable = false, unique = true)
-    private Long userId;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    @JsonIgnore
+    private User user;
 
     public UserProcess() {
     }
 
-    public UserProcess(boolean hasContact, boolean hasAddress, boolean hasDocument, boolean hasFamily, boolean hasEducation, boolean hasMember, boolean hasBaptism, Long userId) {
+    public UserProcess(Long id, boolean hasContact, boolean hasAddress, boolean hasDocument, boolean hasFamily, boolean hasEducation, boolean hasMember, boolean hasBaptism, User user) {
+        this.id = id;
         this.hasContact = hasContact;
         this.hasAddress = hasAddress;
         this.hasDocument = hasDocument;
@@ -60,15 +65,31 @@ public class UserProcess {
         this.hasEducation = hasEducation;
         this.hasMember = hasMember;
         this.hasBaptism = hasBaptism;
-        this.userId = userId;
+        this.user = user;
     }
+
+    public UserProcess(boolean hasContact, boolean hasAddress, boolean hasDocument, boolean hasFamily, boolean hasEducation, boolean hasMember, boolean hasBaptism, User user) {
+        this.hasContact = hasContact;
+        this.hasAddress = hasAddress;
+        this.hasDocument = hasDocument;
+        this.hasFamily = hasFamily;
+        this.hasEducation = hasEducation;
+        this.hasMember = hasMember;
+        this.hasBaptism = hasBaptism;
+        this.user = user;
+    }
+
 
     public Long getUserId() {
-        return userId;
+        return user.getId();
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public boolean isHasContact() {
@@ -127,18 +148,6 @@ public class UserProcess {
         this.hasBaptism = hasBaptism;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof UserProcess contact)) return false;
-        return Objects.equals(getId(), contact.getId());
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(getId());
-    }
-
     public Long getId() {
         return id;
     }
@@ -162,5 +171,19 @@ public class UserProcess {
     public void setUpdatedAt(Date updatedAt) {
         this.updatedAt = updatedAt;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof UserProcess contact)) return false;
+        return Objects.equals(getId(), contact.getId());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId());
+    }
+
+
 }
 

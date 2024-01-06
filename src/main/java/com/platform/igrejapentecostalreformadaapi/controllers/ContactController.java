@@ -1,7 +1,6 @@
 package com.platform.igrejapentecostalreformadaapi.controllers;
 
-import com.platform.igrejapentecostalreformadaapi.data.vo.ContactVO;
-import com.platform.igrejapentecostalreformadaapi.entities.Contact;
+import com.platform.igrejapentecostalreformadaapi.data.vo.userForms.ContactVO;
 import com.platform.igrejapentecostalreformadaapi.services.ContactService;
 import com.platform.igrejapentecostalreformadaapi.utils.MediaType;
 import io.swagger.v3.oas.annotations.Operation;
@@ -66,7 +65,7 @@ public class ContactController {
                     )
             }
     )
-    public ResponseEntity<List<Contact>> findAll() throws Exception {
+    public ResponseEntity<List<ContactVO>> findAll() throws Exception {
 
         return ResponseEntity.ok(service.findAll());
     }
@@ -120,7 +119,7 @@ public class ContactController {
     }
 
     @PostMapping(
-            value = "/create-contact-data",
+            value = "/create-contact-data/{userId}",
             consumes = {MediaType.APPLICATION_JSON},
             produces = {MediaType.APPLICATION_JSON})
     @Operation(
@@ -155,8 +154,8 @@ public class ContactController {
                     )
             }
     )
-    public ResponseEntity<ContactVO> create(@RequestBody ContactVO contactVO) {
-     ContactVO contact = service.create(contactVO);
+    public ResponseEntity<ContactVO> create(@RequestBody ContactVO contactVO, @PathVariable Long userId) {
+     ContactVO contact = service.create(contactVO, userId);
 
      return ResponseEntity.ok().body(contact);
     }

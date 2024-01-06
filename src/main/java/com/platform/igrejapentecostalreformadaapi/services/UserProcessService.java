@@ -1,16 +1,19 @@
 package com.platform.igrejapentecostalreformadaapi.services;
 
 import com.platform.igrejapentecostalreformadaapi.data.vo.UserProcessVO;
+import com.platform.igrejapentecostalreformadaapi.entities.User;
 import com.platform.igrejapentecostalreformadaapi.entities.UserProcess;
 import com.platform.igrejapentecostalreformadaapi.exceptions.ResourceAlreadyExistsException;
 import com.platform.igrejapentecostalreformadaapi.exceptions.ResourceNotFoundException;
 import com.platform.igrejapentecostalreformadaapi.mapper.UserProcessMapper;
 import com.platform.igrejapentecostalreformadaapi.repositories.UserProcessRepository;
-import jakarta.transaction.Transactional;
+import com.platform.igrejapentecostalreformadaapi.repositories.UserRepository;
+import com.platform.igrejapentecostalreformadaapi.utils.Messages;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.logging.Logger;
 
 @Service
@@ -22,45 +25,59 @@ public class UserProcessService {
     private UserProcessRepository repository;
 
     @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
     private UserProcessMapper mapper;
 
-    public List<UserProcess> findAll() {
+    public List<UserProcessVO> findAll() {
 
         logger.info("Finding all user process data!");
 
-        return repository.findAll();
+        List<UserProcess> userProcessList = repository.findAll();
+
+        return this.mapper.convertEntitiesToVOs(userProcessList);
     }
 
     public UserProcessVO findById(Long id) {
-         logger.info("Finding a user process by Id");
+        logger.info("Finding a user process by Id");
 
-         UserProcess entity = repository
-            .findById(id)
-            .orElseThrow(
-         () -> new ResourceNotFoundException("User Process", "id", id)
-         );
+        UserProcess entity = repository
+                .findById(id)
+                .orElseThrow(
+                        () -> new ResourceNotFoundException("User Process", "id", id)
+                );
 
-         return this.mapper.convertEntityToVO(entity);
-     }
+        return this.mapper.convertEntityToVO(entity);
+    }
 
     public UserProcessVO findByUserId(Long id) {
         logger.info("Finding a user process by Id");
 
         UserProcess entity = repository.findByUserId(id).orElseThrow(
-                () -> new ResourceNotFoundException("User Process", "id", id)
+                () -> new ResourceNotFoundException("Dados de Processo", "id", id)
         );
 
         return this.mapper.convertEntityToVO(entity);
     }
 
-    public UserProcessVO create(UserProcessVO userProcessVO) {
+    public UserProcessVO create(UserProcessVO userProcessVO, Long userId) {
 
         logger.info("Creating a user process data");
 
-        this.repository.findByUserId(userProcessVO.getUserId()).orElseThrow(
-                () -> new ResourceAlreadyExistsException("User already has a process registered")
-        );
+        Optional<User> user = this.userRepository.findById(userId);
 
+        if (user.isEmpty()) {
+            throw new ResourceNotFoundException("Usuário", "id", userId);
+        }
+
+        Optional<UserProcess> optionalUserProcess = this.repository.findByUserId(userId);
+
+        if (optionalUserProcess.isPresent()) {
+            throw new ResourceAlreadyExistsException(Messages.PROCESS_IS_PRESENT_MESSAGE);
+        }
+
+        userProcessVO.setUser(user.get());
 
         UserProcess userProcess = this.mapper.convertVOToEntity(userProcessVO);
 
@@ -84,7 +101,6 @@ public class UserProcessService {
         entity.setHasEducation(userProcessVO.getHasEducation());
         entity.setHasFamily(userProcessVO.getHasFamily());
         entity.setHasMember(userProcessVO.getHasMember());
-        entity.setUserId(userProcessVO.getUserId());
 
         UserProcess updatedUserProcess = this.repository.save(entity);
 
@@ -95,18 +111,18 @@ public class UserProcessService {
      * O @Transaction é necessário, pois esta operação é
      * customizada, sem gerenciamento do Spring Data, o que
      * pode causar eventuais inconsistências no banco de dados
+
+     @Transactional public UserProcessVO setHasContact(Long id, Long userId) {
+     logger.info("Set user has contact info");
+
+     this.repository.setHasContact(userId);
+
+     UserProcess entity = this.repository.findById(id).orElseThrow(
+     () -> new ResourceNotFoundException("User Process", "id", id)
+     );
+
+     return this.mapper.convertEntityToVO(entity);
+
+     }
      */
-    @Transactional
-    public UserProcessVO setHasContact(Long id, Long userId) {
-        logger.info("Set user has contact info");
-
-        this.repository.setHasContact(userId);
-
-        UserProcess entity = this.repository.findById(id).orElseThrow(
-                () -> new ResourceNotFoundException("User Process", "id", id)
-        );
-
-        return this.mapper.convertEntityToVO(entity);
-
-    }
 }

@@ -1,5 +1,7 @@
-package com.platform.igrejapentecostalreformadaapi.entities;
+package com.platform.igrejapentecostalreformadaapi.entities.userForms;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.platform.igrejapentecostalreformadaapi.entities.User;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -31,36 +33,41 @@ public class Contact {
     @UpdateTimestamp
     private Date updatedAt;
 
-
-    @Column(name="user_id", nullable = false, unique = true)
-    private Long userId;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    @JsonIgnore
+    private User user;
 
     public Contact() {
     }
 
-    public Contact(Long id, String sex, String cellphone, String telephone, Date birthday, Long userId) {
+    public Contact(Long id, String sex, String cellphone, String telephone, Date birthday, User user) {
         this.id = id;
         this.sex = sex;
         this.cellphone = cellphone;
         this.telephone = telephone;
         this.birthday = birthday;
-        this.userId = userId;
+        this.user = user;
     }
 
-    public Contact(String sex, String cellphone, String telephone, Date birthday, Long userId) {
+    public Contact(String sex, String cellphone, String telephone, Date birthday, User user) {
         this.sex = sex;
         this.cellphone = cellphone;
         this.telephone = telephone;
         this.birthday = birthday;
-        this.userId = userId;
+        this.user = user;
     }
 
     public Long getUserId() {
-        return userId;
+        return user.getId();
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     @Override
