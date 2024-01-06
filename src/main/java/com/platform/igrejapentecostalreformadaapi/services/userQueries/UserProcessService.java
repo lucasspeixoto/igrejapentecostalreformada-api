@@ -1,4 +1,4 @@
-package com.platform.igrejapentecostalreformadaapi.services;
+package com.platform.igrejapentecostalreformadaapi.services.userQueries;
 
 import com.platform.igrejapentecostalreformadaapi.data.vo.UserProcessVO;
 import com.platform.igrejapentecostalreformadaapi.entities.User;

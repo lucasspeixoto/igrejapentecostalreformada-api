@@ -22,6 +22,10 @@ public class MemberVO implements Serializable {
 
     private Boolean isRegisterFinished;
 
+    public MemberVO() {
+
+    }
+
     public MemberVO(Long id, String name, String craft, String membership, Boolean isRegisterFinished) {
         this.id = id;
         this.name = name;
@@ -34,6 +38,10 @@ public class MemberVO implements Serializable {
         return id;
     }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public String getName() {
         return name;
     }
@@ -42,8 +50,8 @@ public class MemberVO implements Serializable {
         this.name = name;
     }
 
-    public String getCraft() {
-        return craft;
+    public String getCraft(String craft) {
+        return this.craft;
     }
 
     public void setCraft(String craft) {

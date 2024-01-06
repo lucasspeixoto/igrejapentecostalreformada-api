@@ -6,6 +6,7 @@ import com.platform.igrejapentecostalreformadaapi.mapper.UserMapper;
 import com.platform.igrejapentecostalreformadaapi.mapper.UserProcessMapper;
 import com.platform.igrejapentecostalreformadaapi.repositories.UserProcessRepository;
 import com.platform.igrejapentecostalreformadaapi.repositories.UserRepository;
+import com.platform.igrejapentecostalreformadaapi.services.userQueries.UserProcessService;
 import com.platform.igrejapentecostalreformadaapi.unittests.mapper.mocks.MockUser;
 import com.platform.igrejapentecostalreformadaapi.unittests.mapper.mocks.MockUserProcess;
 import org.junit.jupiter.api.BeforeEach;

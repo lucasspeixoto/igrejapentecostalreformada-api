@@ -1,4 +1,4 @@
-package com.platform.igrejapentecostalreformadaapi.services;
+package com.platform.igrejapentecostalreformadaapi.services.userForms;
 
 import com.platform.igrejapentecostalreformadaapi.data.vo.userForms.ContactVO;
 import com.platform.igrejapentecostalreformadaapi.entities.userForms.Contact;

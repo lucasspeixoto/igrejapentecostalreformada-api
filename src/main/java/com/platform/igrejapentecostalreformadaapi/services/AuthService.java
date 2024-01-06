@@ -10,6 +10,7 @@ import com.platform.igrejapentecostalreformadaapi.exceptions.PlatformException;
 import com.platform.igrejapentecostalreformadaapi.repositories.RoleRepository;
 import com.platform.igrejapentecostalreformadaapi.repositories.UserRepository;
 import com.platform.igrejapentecostalreformadaapi.security.JwtTokenProvider;
+import com.platform.igrejapentecostalreformadaapi.services.userQueries.UserProcessService;
 import com.platform.igrejapentecostalreformadaapi.utils.Messages;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
