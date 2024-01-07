@@ -17,16 +17,19 @@ public class MemberVO implements Serializable {
 
     private String membership;
 
+    private String birthday;
+
     private Boolean isRegisterFinished;
 
     public MemberVO() {
     }
 
-    public MemberVO(Long id, String name, String craft, String membership, Boolean isRegisterFinished) {
+    public MemberVO(Long id, String name, String craft, String membership, String birthday, Boolean isRegisterFinished) {
         this.id = id;
         this.name = name;
         this.craft = craft;
         this.membership = membership;
+        this.birthday = birthday;
         this.isRegisterFinished = isRegisterFinished;
     }
 
@@ -62,12 +65,20 @@ public class MemberVO implements Serializable {
         this.membership = membership;
     }
 
+    public String getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(String birthday) {
+        this.birthday = birthday;
+    }
+
     public Boolean getIsRegisterFinished() {
         return isRegisterFinished;
     }
 
-    public void setIsRegisterFinished(Boolean registerFinished) {
-        isRegisterFinished = registerFinished;
+    public void setIsRegisterFinished(Boolean isRegisterFinished) {
+        this.isRegisterFinished = isRegisterFinished;
     }
 
     @Override

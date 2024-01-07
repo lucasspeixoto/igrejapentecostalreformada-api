@@ -1,12 +1,15 @@
 package com.platform.igrejapentecostalreformadaapi.services;
 
 import com.platform.igrejapentecostalreformadaapi.data.vo.MemberVO;
+import com.platform.igrejapentecostalreformadaapi.entities.Contact;
 import com.platform.igrejapentecostalreformadaapi.entities.User;
 import com.platform.igrejapentecostalreformadaapi.entities.Membership;
 import com.platform.igrejapentecostalreformadaapi.entities.UserProcess;
+import com.platform.igrejapentecostalreformadaapi.repositories.ContactRepository;
 import com.platform.igrejapentecostalreformadaapi.repositories.MembershipRepository;
 import com.platform.igrejapentecostalreformadaapi.repositories.UserProcessRepository;
 import com.platform.igrejapentecostalreformadaapi.repositories.UserRepository;
+import com.platform.igrejapentecostalreformadaapi.utils.Transform;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,6 +28,9 @@ public class MemberService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private ContactRepository contactRepository;
 
     @Autowired
     private UserProcessRepository userProcessRepository;
@@ -46,13 +52,20 @@ public class MemberService {
 
             Optional<UserProcess> userProcess = this.userProcessRepository.findByUserId(userId);
 
-            member.setId(userId);
-            member.setName(user.getName().split(" ")[0]);
+            Optional<Contact> contact = this.contactRepository.findByUserId(userId);
 
-            if (membership.isPresent()) {
+            member.setId(userId);
+            member.setName(Transform.getFirstName(user.getName()));
+
+            membership.ifPresent(value -> {
                 member.setCraft(membership.get().getCraft());
                 member.setMembership(membership.get().getMembership());
-            }
+            });
+
+            contact.ifPresent(value -> member.setBirthday(
+                            Transform.getTransformedDate(value.getBirthday())
+                    )
+            );
 
             if (userProcess.isPresent()) {
                 UserProcess selectedUserProcess = userProcess.get();
@@ -65,8 +78,6 @@ public class MemberService {
                         selectedUserProcess.isHasFamily() &
                         selectedUserProcess.isHasMember()
                 );
-            } else {
-                member.setIsRegisterFinished(false);
             }
 
             members.add(member);
