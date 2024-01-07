@@ -1,7 +1,7 @@
-package com.platform.igrejapentecostalreformadaapi.controllers.userForms;
+package com.platform.igrejapentecostalreformadaapi.controllers;
 
-import com.platform.igrejapentecostalreformadaapi.data.vo.userForms.ContactVO;
-import com.platform.igrejapentecostalreformadaapi.services.userForms.ContactService;
+import com.platform.igrejapentecostalreformadaapi.data.vo.ContactVO;
+import com.platform.igrejapentecostalreformadaapi.services.ContactService;
 import com.platform.igrejapentecostalreformadaapi.utils.MediaType;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;

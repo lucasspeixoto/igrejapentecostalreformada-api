@@ -1,8 +1,8 @@
 package com.platform.igrejapentecostalreformadaapi.services;
 
 import com.platform.igrejapentecostalreformadaapi.data.response.PlatformResponse;
-import com.platform.igrejapentecostalreformadaapi.data.vo.auth.LoginVO;
-import com.platform.igrejapentecostalreformadaapi.data.vo.auth.RegisterVO;
+import com.platform.igrejapentecostalreformadaapi.data.vo.LoginVO;
+import com.platform.igrejapentecostalreformadaapi.data.vo.RegisterVO;
 import com.platform.igrejapentecostalreformadaapi.data.vo.UserProcessVO;
 import com.platform.igrejapentecostalreformadaapi.entities.Role;
 import com.platform.igrejapentecostalreformadaapi.entities.User;
@@ -10,7 +10,6 @@ import com.platform.igrejapentecostalreformadaapi.exceptions.PlatformException;
 import com.platform.igrejapentecostalreformadaapi.repositories.RoleRepository;
 import com.platform.igrejapentecostalreformadaapi.repositories.UserRepository;
 import com.platform.igrejapentecostalreformadaapi.security.JwtTokenProvider;
-import com.platform.igrejapentecostalreformadaapi.services.userQueries.UserProcessService;
 import com.platform.igrejapentecostalreformadaapi.utils.Messages;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,8 +1,8 @@
-package com.platform.igrejapentecostalreformadaapi.controllers.userQueries;
+package com.platform.igrejapentecostalreformadaapi.controllers;
 
-import com.platform.igrejapentecostalreformadaapi.data.vo.userQueries.MemberVO;
-import com.platform.igrejapentecostalreformadaapi.services.userForms.ContactService;
-import com.platform.igrejapentecostalreformadaapi.services.userQueries.MemberService;
+import com.platform.igrejapentecostalreformadaapi.data.vo.MemberVO;
+import com.platform.igrejapentecostalreformadaapi.services.ContactService;
+import com.platform.igrejapentecostalreformadaapi.services.MemberService;
 import com.platform.igrejapentecostalreformadaapi.utils.MediaType;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
@@ -26,7 +26,7 @@ public class MemberController {
     private final Logger logger = Logger.getLogger(ContactService.class.getName());
 
     @Autowired
-    private MemberService service;
+    private MemberService memberService;
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping(produces = {MediaType.APPLICATION_JSON})
@@ -70,7 +70,7 @@ public class MemberController {
     )
     public ResponseEntity<List<MemberVO>> findAll() throws Exception {
 
-        return ResponseEntity.ok(service.findAll());
+        return ResponseEntity.ok(this.memberService.findAll());
     }
 
 }

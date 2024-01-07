@@ -1,8 +1,7 @@
-package com.platform.igrejapentecostalreformadaapi.controllers.userQueries;
+package com.platform.igrejapentecostalreformadaapi.controllers;
 
-import com.platform.igrejapentecostalreformadaapi.data.vo.UserProcessVO;
-import com.platform.igrejapentecostalreformadaapi.services.userForms.ContactService;
-import com.platform.igrejapentecostalreformadaapi.services.userQueries.UserProcessService;
+import com.platform.igrejapentecostalreformadaapi.data.vo.MembershipVO;
+import com.platform.igrejapentecostalreformadaapi.services.MembershipService;
 import com.platform.igrejapentecostalreformadaapi.utils.MediaType;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
@@ -18,20 +17,20 @@ import java.util.List;
 import java.util.logging.Logger;
 
 @RestController
-@RequestMapping(value = "/api/v1/user-process")
-@Tag(name = "User Process", description = "Endpoints for Managing User Process")
-public class UserProcessController {
+@RequestMapping(value = "/api/v1/membership")
+@Tag(name = "Membership", description = "Endpoints for Managing Membership")
+public class MembershipController {
 
-    private final Logger logger = Logger.getLogger(ContactService.class.getName());
+    private final Logger logger = Logger.getLogger(MembershipService.class.getName());
 
     @Autowired
-    private UserProcessService service;
+    private MembershipService service;
 
     @GetMapping(produces = {MediaType.APPLICATION_JSON})
     @Operation(
-            summary = "Finds all user process data",
-            description = "Service for find all the user process",
-            tags = {"User Process"},
+            summary = "Finds all membership",
+            description = "Service for find all the membership",
+            tags = {"Membership"},
             responses = {
                     @ApiResponse(
                             description = "Success",
@@ -40,7 +39,7 @@ public class UserProcessController {
                                     @Content(
                                             mediaType = "application/json",
                                             array = @ArraySchema(
-                                                    schema = @Schema(implementation = UserProcessVO.class))
+                                                    schema = @Schema(implementation = MembershipVO.class))
                                     )
                             }
                     ),
@@ -66,9 +65,51 @@ public class UserProcessController {
                     )
             }
     )
-    public ResponseEntity<List<UserProcessVO>> findAll() throws Exception {
+    public ResponseEntity<List<MembershipVO>> findAll() throws Exception {
 
         return ResponseEntity.ok(service.findAll());
+    }
+
+    @PostMapping(
+            value = "/create/{userId}",
+            consumes = {MediaType.APPLICATION_JSON},
+            produces = {MediaType.APPLICATION_JSON})
+    @Operation(
+            summary = "Create a user Membership data",
+            description = "Create a user Membership by passing in a JSON representation of Membership",
+            tags = {"Membership"},
+            responses = {
+                    @ApiResponse(
+                            description = "Success",
+                            responseCode = "200",
+                            content = @Content(schema = @Schema(implementation = MembershipVO.class))
+                    ),
+                    @ApiResponse(
+                            description = "Bad Request",
+                            responseCode = "400",
+                            content = @Content
+                    ),
+                    @ApiResponse(
+                            description = "Unauthorized",
+                            responseCode = "401",
+                            content = @Content
+                    ),
+                    @ApiResponse(
+                            description = "Not Found",
+                            responseCode = "404",
+                            content = @Content
+                    ),
+                    @ApiResponse(
+                            description = "Internal Server Error",
+                            responseCode = "500",
+                            content = @Content
+                    )
+            }
+    )
+    public ResponseEntity<MembershipVO> create(@RequestBody MembershipVO membershipVO, @PathVariable Long userId) {
+        MembershipVO contact = service.create(membershipVO, userId);
+
+        return ResponseEntity.ok().body(contact);
     }
 
     @GetMapping(
@@ -76,9 +117,9 @@ public class UserProcessController {
             produces = {MediaType.APPLICATION_JSON}
     )
     @Operation(
-            summary = "Find a User process",
-            description = "Service for find a contact by id",
-            tags = {"User Process"},
+            summary = "Find a Membership",
+            description = "Service for find a Membership by id",
+            tags = {"Membership"},
             responses = {
                     @ApiResponse(
                             description = "Success",
@@ -87,7 +128,7 @@ public class UserProcessController {
                                     @Content(
                                             mediaType = "application/json",
                                             array = @ArraySchema(
-                                                    schema = @Schema(implementation = UserProcessVO.class))
+                                                    schema = @Schema(implementation = MembershipVO.class))
                                     )
                             }
                     ),
@@ -113,103 +154,19 @@ public class UserProcessController {
                     )
             }
     )
-    public ResponseEntity<UserProcessVO> findById(@PathVariable Long id) {
-        UserProcessVO selectedContact = service.findById(id);
+    public ResponseEntity<MembershipVO> findById(@PathVariable Long id) {
+        MembershipVO selectedMembership = service.findById(id);
 
-        return ResponseEntity.ok().body(selectedContact);
-    }
-
-    @PostMapping(
-            value = "/create-user-process/{userId}",
-            consumes = {MediaType.APPLICATION_JSON},
-            produces = {MediaType.APPLICATION_JSON})
-    @Operation(
-            summary = "Create a user process data",
-            description = "Create a user process by passing in a JSON representation of product",
-            tags = {"User Process"},
-            responses = {
-                    @ApiResponse(
-                            description = "Success",
-                            responseCode = "200",
-                            content = @Content(schema = @Schema(implementation = UserProcessVO.class))
-                    ),
-                    @ApiResponse(
-                            description = "Bad Request",
-                            responseCode = "400",
-                            content = @Content
-                    ),
-                    @ApiResponse(
-                            description = "Unauthorized",
-                            responseCode = "401",
-                            content = @Content
-                    ),
-                    @ApiResponse(
-                            description = "Not Found",
-                            responseCode = "404",
-                            content = @Content
-                    ),
-                    @ApiResponse(
-                            description = "Internal Server Error",
-                            responseCode = "500",
-                            content = @Content
-                    )
-            }
-    )
-    public ResponseEntity<UserProcessVO> create(@RequestBody UserProcessVO userProcessVO, @PathVariable Long userId) {
-        UserProcessVO contact = service.create(userProcessVO, userId);
-
-        return ResponseEntity.ok().body(contact);
-    }
-
-    @PutMapping(
-            value = "/update-user-process",
-            consumes = {MediaType.APPLICATION_JSON},
-            produces = {MediaType.APPLICATION_JSON})
-    @Operation(
-            summary = "Update a user contact data",
-            description = "Update a user contact by passing in a JSON representation of product",
-            tags = {"Contact"},
-            responses = {
-                    @ApiResponse(
-                            description = "Success",
-                            responseCode = "200",
-                            content = @Content(schema = @Schema(implementation = UserProcessVO.class))
-                    ),
-                    @ApiResponse(
-                            description = "Bad Request",
-                            responseCode = "400",
-                            content = @Content
-                    ),
-                    @ApiResponse(
-                            description = "Unauthorized",
-                            responseCode = "401",
-                            content = @Content
-                    ),
-                    @ApiResponse(
-                            description = "Not Found",
-                            responseCode = "404",
-                            content = @Content
-                    ),
-                    @ApiResponse(
-                            description = "Internal Server Error",
-                            responseCode = "500",
-                            content = @Content
-                    )
-            }
-    )
-    public ResponseEntity<UserProcessVO> update(@RequestBody UserProcessVO userProcessVO) {
-        UserProcessVO userProcess = service.update(userProcessVO);
-
-        return ResponseEntity.ok().body(userProcess);
+        return ResponseEntity.ok().body(selectedMembership);
     }
 
     @GetMapping(
             value = "/find-by-user-id/{id}",
             produces = {MediaType.APPLICATION_JSON})
     @Operation(
-            summary = "Finds User process by user id",
-            description = "Service for find user process by user id",
-            tags = {"User Process"},
+            summary = "Finds Membership data by user id",
+            description = "Service for find Membership by user id",
+            tags = {"Membership"},
             responses = {
                     @ApiResponse(
                             description = "Success",
@@ -218,7 +175,7 @@ public class UserProcessController {
                                     @Content(
                                             mediaType = "application/json",
                                             array = @ArraySchema(
-                                                    schema = @Schema(implementation = UserProcessVO.class))
+                                                    schema = @Schema(implementation = MembershipVO.class))
                                     )
                             }
                     ),
@@ -244,8 +201,50 @@ public class UserProcessController {
                     )
             }
     )
-    public ResponseEntity<UserProcessVO> findByUserId(@PathVariable(value = "id") Long id) throws Exception {
+    public ResponseEntity<MembershipVO> findByUserId(@PathVariable(value = "id") Long id) throws Exception {
 
         return ResponseEntity.ok(service.findByUserId(id));
+    }
+
+    @PutMapping(
+            value = "/update",
+            consumes = {MediaType.APPLICATION_JSON},
+            produces = {MediaType.APPLICATION_JSON})
+    @Operation(
+            summary = "Update a user Membership data",
+            description = "Update a user Membership by passing in a JSON representation of Membership",
+            tags = {"Membership"},
+            responses = {
+                    @ApiResponse(
+                            description = "Success",
+                            responseCode = "200",
+                            content = @Content(schema = @Schema(implementation = MembershipVO.class))
+                    ),
+                    @ApiResponse(
+                            description = "Bad Request",
+                            responseCode = "400",
+                            content = @Content
+                    ),
+                    @ApiResponse(
+                            description = "Unauthorized",
+                            responseCode = "401",
+                            content = @Content
+                    ),
+                    @ApiResponse(
+                            description = "Not Found",
+                            responseCode = "404",
+                            content = @Content
+                    ),
+                    @ApiResponse(
+                            description = "Internal Server Error",
+                            responseCode = "500",
+                            content = @Content
+                    )
+            }
+    )
+    public ResponseEntity<MembershipVO> update(@RequestBody MembershipVO membershipVO) {
+        MembershipVO contact = service.update(membershipVO);
+
+        return ResponseEntity.ok().body(contact);
     }
 }

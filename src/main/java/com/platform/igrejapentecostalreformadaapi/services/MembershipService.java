@@ -1,8 +1,8 @@
-package com.platform.igrejapentecostalreformadaapi.services.userForms;
+package com.platform.igrejapentecostalreformadaapi.services;
 
-import com.platform.igrejapentecostalreformadaapi.data.vo.userForms.MembershipVO;
+import com.platform.igrejapentecostalreformadaapi.data.vo.MembershipVO;
 import com.platform.igrejapentecostalreformadaapi.entities.User;
-import com.platform.igrejapentecostalreformadaapi.entities.userForms.Membership;
+import com.platform.igrejapentecostalreformadaapi.entities.Membership;
 import com.platform.igrejapentecostalreformadaapi.exceptions.ResourceAlreadyExistsException;
 import com.platform.igrejapentecostalreformadaapi.exceptions.ResourceNotFoundException;
 import com.platform.igrejapentecostalreformadaapi.mapper.MembershipMapper;
