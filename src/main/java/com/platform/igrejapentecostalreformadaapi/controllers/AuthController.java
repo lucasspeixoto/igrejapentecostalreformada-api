@@ -2,8 +2,8 @@ package com.platform.igrejapentecostalreformadaapi.controllers;
 
 import com.platform.igrejapentecostalreformadaapi.data.response.JWTAuthResponse;
 import com.platform.igrejapentecostalreformadaapi.data.response.PlatformResponse;
-import com.platform.igrejapentecostalreformadaapi.data.vo.auth.LoginVO;
-import com.platform.igrejapentecostalreformadaapi.data.vo.auth.RegisterVO;
+import com.platform.igrejapentecostalreformadaapi.data.vo.LoginVO;
+import com.platform.igrejapentecostalreformadaapi.data.vo.RegisterVO;
 import com.platform.igrejapentecostalreformadaapi.services.AuthService;
 import com.platform.igrejapentecostalreformadaapi.services.UserService;
 import com.platform.igrejapentecostalreformadaapi.utils.MediaType;
@@ -94,7 +94,7 @@ public class AuthController {
                                     @Content(
                                             mediaType = "application/json",
                                             array = @ArraySchema(
-                                                    schema = @Schema(implementation = PlatformResponse.class))
+                                                    schema = @Schema(implementation = RegisterVO.class))
                                     )
                             }
                     ),

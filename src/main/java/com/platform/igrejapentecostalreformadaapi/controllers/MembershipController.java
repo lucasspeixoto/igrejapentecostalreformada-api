@@ -1,6 +1,6 @@
 package com.platform.igrejapentecostalreformadaapi.controllers;
 
-import com.platform.igrejapentecostalreformadaapi.data.vo.userForms.MembershipVO;
+import com.platform.igrejapentecostalreformadaapi.data.vo.MembershipVO;
 import com.platform.igrejapentecostalreformadaapi.services.MembershipService;
 import com.platform.igrejapentecostalreformadaapi.utils.MediaType;
 import io.swagger.v3.oas.annotations.Operation;

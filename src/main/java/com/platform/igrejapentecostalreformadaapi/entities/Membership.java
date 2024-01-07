@@ -1,21 +1,19 @@
-package com.platform.igrejapentecostalreformadaapi.data.vo.userForms;
+package com.platform.igrejapentecostalreformadaapi.entities;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.platform.igrejapentecostalreformadaapi.entities.User;
+import jakarta.persistence.*;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
-import java.io.Serial;
-import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
 
-@JsonPropertyOrder({"id", "membership", "craft", "community", "interest", "created_at", "updated_atccc"})
-public class MembershipVO implements Serializable {
+@Entity
+@Table(name = "membership")
+public class Membership {
 
-    @Serial
-    private static final long serialVersionUID = 1L;
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String membership;
@@ -26,24 +24,45 @@ public class MembershipVO implements Serializable {
 
     private String interest;
 
-    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "America/Sao_Paulo")
+    @Column(name="created_at", nullable = false, updatable = false)
+    @CreationTimestamp
     private Date createdAt;
 
-    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "America/Sao_Paulo")
+    @Column(name="updated_at", nullable = false)
+    @UpdateTimestamp
     private Date updatedAt;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
     @JsonIgnore
     private User user;
 
-    public MembershipVO(String membership, String craft, String community, String interest) {
+    public Membership() {
+    }
+
+    public Membership(Long id, String membership, String craft, String community, String interest, Date createdAt, Date updatedAt, User user) {
+        this.id = id;
         this.membership = membership;
         this.craft = craft;
         this.community = community;
         this.interest = interest;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+        this.user = user;
+    }
+
+    public Membership(String membership, String craft, String community, String interest, Date createdAt, Date updatedAt, User user) {
+        this.membership = membership;
+        this.craft = craft;
+        this.community = community;
+        this.interest = interest;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+        this.user = user;
     }
 
     public Long getUserId() {
-        return this.user.getId();
+        return user.getId();
     }
 
     public User getUser() {
@@ -52,6 +71,18 @@ public class MembershipVO implements Serializable {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Membership contact)) return false;
+        return Objects.equals(getId(), contact.getId());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId());
     }
 
     public Long getId() {
@@ -109,16 +140,5 @@ public class MembershipVO implements Serializable {
     public void setUpdatedAt(Date updatedAt) {
         this.updatedAt = updatedAt;
     }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof MembershipVO contactVO)) return false;
-        return Objects.equals(getId(), contactVO.getId());
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(getId());
-    }
 }
+

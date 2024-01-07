@@ -2,7 +2,6 @@ package com.platform.igrejapentecostalreformadaapi.exceptions;
 
 import com.platform.igrejapentecostalreformadaapi.data.vo.ErrorDetails;
 import com.platform.igrejapentecostalreformadaapi.utils.MediaType;
-import io.jsonwebtoken.ExpiredJwtException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;

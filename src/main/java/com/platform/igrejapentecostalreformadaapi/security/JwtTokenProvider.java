@@ -23,7 +23,6 @@ public class JwtTokenProvider {
     @Value("${security.jwt.token.expire-length:3600000}")
     private long jwtExpirationDate = 3600000;
 
-    // generate JWT token
     public String generateToken(Authentication authentication) {
         String username = authentication.getName();
 
@@ -42,11 +41,9 @@ public class JwtTokenProvider {
     private Key key() {
         SecretKey key = Keys.secretKeyFor(SignatureAlgorithm.HS256);
         String secretString = Encoders.BASE64.encode(key.getEncoded());
-        //System.out.println(secretString);
         return Keys.hmacShaKeyFor(Decoders.BASE64.decode(jwtSecret));
     }
 
-    // get username from Jwt token
     public String getUsername(String token) {
         Claims claims = Jwts.parserBuilder()
                 .setSigningKey(key())
@@ -57,7 +54,6 @@ public class JwtTokenProvider {
         return claims.getSubject();
     }
 
-    // validate Jwt token
     public boolean validateToken(String token) {
         try {
             Jwts.parserBuilder()

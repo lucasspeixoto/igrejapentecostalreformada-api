@@ -1,7 +1,6 @@
-package com.platform.igrejapentecostalreformadaapi.entities.userForms;
+package com.platform.igrejapentecostalreformadaapi.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.platform.igrejapentecostalreformadaapi.entities.User;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -10,20 +9,20 @@ import java.util.Date;
 import java.util.Objects;
 
 @Entity
-@Table(name = "membership")
-public class Membership {
+@Table(name = "contacts")
+public class Contact {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String membership;
+    private String sex;
 
-    private String craft;
+    private String cellphone;
 
-    private String community;
+    private String telephone;
 
-    private String interest;
+    private Date birthday;
 
     @Column(name="created_at", nullable = false, updatable = false)
     @CreationTimestamp
@@ -38,27 +37,23 @@ public class Membership {
     @JsonIgnore
     private User user;
 
-    public Membership() {
+    public Contact() {
     }
 
-    public Membership(Long id, String membership, String craft, String community, String interest, Date createdAt, Date updatedAt, User user) {
+    public Contact(Long id, String sex, String cellphone, String telephone, Date birthday, User user) {
         this.id = id;
-        this.membership = membership;
-        this.craft = craft;
-        this.community = community;
-        this.interest = interest;
-        this.createdAt = createdAt;
-        this.updatedAt = updatedAt;
+        this.sex = sex;
+        this.cellphone = cellphone;
+        this.telephone = telephone;
+        this.birthday = birthday;
         this.user = user;
     }
 
-    public Membership(String membership, String craft, String community, String interest, Date createdAt, Date updatedAt, User user) {
-        this.membership = membership;
-        this.craft = craft;
-        this.community = community;
-        this.interest = interest;
-        this.createdAt = createdAt;
-        this.updatedAt = updatedAt;
+    public Contact(String sex, String cellphone, String telephone, Date birthday, User user) {
+        this.sex = sex;
+        this.cellphone = cellphone;
+        this.telephone = telephone;
+        this.birthday = birthday;
         this.user = user;
     }
 
@@ -77,7 +72,7 @@ public class Membership {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Membership contact)) return false;
+        if (!(o instanceof Contact contact)) return false;
         return Objects.equals(getId(), contact.getId());
     }
 
@@ -94,36 +89,36 @@ public class Membership {
         this.id = id;
     }
 
-    public String getMembership() {
-        return membership;
+    public String getSex() {
+        return sex;
     }
 
-    public void setMembership(String membership) {
-        this.membership = membership;
+    public void setSex(String sex) {
+        this.sex = sex;
     }
 
-    public String getCraft() {
-        return craft;
+    public String getCellphone() {
+        return cellphone;
     }
 
-    public void setCraft(String craft) {
-        this.craft = craft;
+    public void setCellphone(String cellphone) {
+        this.cellphone = cellphone;
     }
 
-    public String getCommunity() {
-        return community;
+    public String getTelephone() {
+        return telephone;
     }
 
-    public void setCommunity(String community) {
-        this.community = community;
+    public void setTelephone(String telephone) {
+        this.telephone = telephone;
     }
 
-    public String getInterest() {
-        return interest;
+    public Date getBirthday() {
+        return birthday;
     }
 
-    public void setInterest(String interest) {
-        this.interest = interest;
+    public void setBirthday(Date birthday) {
+        this.birthday = birthday;
     }
 
     public Date getCreatedAt() {

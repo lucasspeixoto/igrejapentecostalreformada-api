@@ -1,4 +1,5 @@
 package com.platform.igrejapentecostalreformadaapi.mapper;
+
 import com.platform.igrejapentecostalreformadaapi.data.vo.UserProcessVO;
 import com.platform.igrejapentecostalreformadaapi.entities.UserProcess;
 import org.mapstruct.Mapper;

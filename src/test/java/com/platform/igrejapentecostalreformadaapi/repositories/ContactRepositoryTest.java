@@ -1,6 +1,6 @@
 package com.platform.igrejapentecostalreformadaapi.repositories;
 
-import com.platform.igrejapentecostalreformadaapi.entities.userForms.Contact;
+import com.platform.igrejapentecostalreformadaapi.entities.Contact;
 
 import static org.junit.jupiter.api.Assertions.*;
 

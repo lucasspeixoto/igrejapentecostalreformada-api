@@ -1,4 +1,4 @@
-package com.platform.igrejapentecostalreformadaapi.data.vo.userForms;
+package com.platform.igrejapentecostalreformadaapi.data.vo;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -10,36 +10,36 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
 
-@JsonPropertyOrder({"id", "birthday", "cellphone", "telephone", "sex",  "created_at", "cellphone"})
-public class ContactVO implements Serializable {
+@JsonPropertyOrder({"id", "membership", "craft", "community", "interest", "created_at", "updated_at"})
+public class MembershipVO implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 1L;
 
     private Long id;
 
-    private Date birthday;
+    private String membership;
 
-    private String cellphone;
+    private String craft;
 
-    private String telephone;
+    private String community;
 
-    private String sex;
+    private String interest;
 
-    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone="America/Sao_Paulo")
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "America/Sao_Paulo")
     private Date createdAt;
 
-    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone="America/Sao_Paulo")
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "America/Sao_Paulo")
     private Date updatedAt;
 
     @JsonIgnore
     private User user;
 
-    public ContactVO(Date birthday, String cellphone, String telephone, String sex) {
-        this.birthday = birthday;
-        this.cellphone = cellphone;
-        this.telephone = telephone;
-        this.sex = sex;
+    public MembershipVO(String membership, String craft, String community, String interest) {
+        this.membership = membership;
+        this.craft = craft;
+        this.community = community;
+        this.interest = interest;
     }
 
     public Long getUserId() {
@@ -62,36 +62,36 @@ public class ContactVO implements Serializable {
         this.id = id;
     }
 
-    public Date getBirthday() {
-        return birthday;
+    public String getMembership() {
+        return membership;
     }
 
-    public void setBirthday(Date birthday) {
-        this.birthday = birthday;
+    public void setMembership(String membership) {
+        this.membership = membership;
     }
 
-    public String getCellphone() {
-        return cellphone;
+    public String getCraft() {
+        return craft;
     }
 
-    public void setCellphone(String cellphone) {
-        this.cellphone = cellphone;
+    public void setCraft(String craft) {
+        this.craft = craft;
     }
 
-    public String getTelephone() {
-        return telephone;
+    public String getCommunity() {
+        return community;
     }
 
-    public void setTelephone(String telephone) {
-        this.telephone = telephone;
+    public void setCommunity(String community) {
+        this.community = community;
     }
 
-    public String getSex() {
-        return sex;
+    public String getInterest() {
+        return interest;
     }
 
-    public void setSex(String sex) {
-        this.sex = sex;
+    public void setInterest(String interest) {
+        this.interest = interest;
     }
 
     public Date getCreatedAt() {
@@ -113,7 +113,7 @@ public class ContactVO implements Serializable {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof ContactVO contactVO)) return false;
+        if (!(o instanceof MembershipVO contactVO)) return false;
         return Objects.equals(getId(), contactVO.getId());
     }
 

@@ -1,6 +1,7 @@
 package com.platform.igrejapentecostalreformadaapi.mapper;
-import com.platform.igrejapentecostalreformadaapi.data.vo.userForms.ContactVO;
-import com.platform.igrejapentecostalreformadaapi.entities.userForms.Contact;
+
+import com.platform.igrejapentecostalreformadaapi.data.vo.ContactVO;
+import com.platform.igrejapentecostalreformadaapi.entities.Contact;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 

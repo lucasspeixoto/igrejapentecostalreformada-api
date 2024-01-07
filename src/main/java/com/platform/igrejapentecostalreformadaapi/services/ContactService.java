@@ -1,7 +1,7 @@
 package com.platform.igrejapentecostalreformadaapi.services;
 
-import com.platform.igrejapentecostalreformadaapi.data.vo.userForms.ContactVO;
-import com.platform.igrejapentecostalreformadaapi.entities.userForms.Contact;
+import com.platform.igrejapentecostalreformadaapi.data.vo.ContactVO;
+import com.platform.igrejapentecostalreformadaapi.entities.Contact;
 import com.platform.igrejapentecostalreformadaapi.entities.User;
 import com.platform.igrejapentecostalreformadaapi.exceptions.ResourceAlreadyExistsException;
 import com.platform.igrejapentecostalreformadaapi.exceptions.ResourceNotFoundException;

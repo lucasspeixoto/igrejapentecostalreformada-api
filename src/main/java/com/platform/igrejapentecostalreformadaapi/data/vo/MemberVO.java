@@ -1,12 +1,9 @@
-package com.platform.igrejapentecostalreformadaapi.data.vo.userQueries;
-
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+package com.platform.igrejapentecostalreformadaapi.data.vo;
 
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.Objects;
 
-@JsonPropertyOrder({"id", "name", "craft", "membership", "isRegisterFinished"})
 public class MemberVO implements Serializable {
 
     @Serial
@@ -22,6 +19,9 @@ public class MemberVO implements Serializable {
 
     private Boolean isRegisterFinished;
 
+    public MemberVO() {
+    }
+
     public MemberVO(Long id, String name, String craft, String membership, Boolean isRegisterFinished) {
         this.id = id;
         this.name = name;
@@ -34,6 +34,10 @@ public class MemberVO implements Serializable {
         return id;
     }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public String getName() {
         return name;
     }
@@ -43,7 +47,7 @@ public class MemberVO implements Serializable {
     }
 
     public String getCraft() {
-        return craft;
+        return this.craft;
     }
 
     public void setCraft(String craft) {
@@ -58,11 +62,11 @@ public class MemberVO implements Serializable {
         this.membership = membership;
     }
 
-    public Boolean getRegisterFinished() {
+    public Boolean getIsRegisterFinished() {
         return isRegisterFinished;
     }
 
-    public void setRegisterFinished(Boolean registerFinished) {
+    public void setIsRegisterFinished(Boolean registerFinished) {
         isRegisterFinished = registerFinished;
     }
 

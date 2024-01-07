@@ -1,6 +1,6 @@
 package com.platform.igrejapentecostalreformadaapi.controllers;
 
-import com.platform.igrejapentecostalreformadaapi.data.vo.userForms.ContactVO;
+import com.platform.igrejapentecostalreformadaapi.data.vo.ContactVO;
 import com.platform.igrejapentecostalreformadaapi.services.ContactService;
 import com.platform.igrejapentecostalreformadaapi.utils.MediaType;
 import io.swagger.v3.oas.annotations.Operation;
@@ -119,7 +119,7 @@ public class ContactController {
     }
 
     @PostMapping(
-            value = "/create-contact-data/{userId}",
+            value = "/create/{userId}",
             consumes = {MediaType.APPLICATION_JSON},
             produces = {MediaType.APPLICATION_JSON})
     @Operation(
@@ -161,7 +161,7 @@ public class ContactController {
     }
 
     @PutMapping(
-            value = "/update-contact-data",
+            value = "/update",
             consumes = {MediaType.APPLICATION_JSON},
             produces = {MediaType.APPLICATION_JSON})
     @Operation(

@@ -120,7 +120,7 @@ public class UserProcessController {
     }
 
     @PostMapping(
-            value = "/create-user-process/{userId}",
+            value = "/create/{userId}",
             consumes = {MediaType.APPLICATION_JSON},
             produces = {MediaType.APPLICATION_JSON})
     @Operation(
@@ -162,13 +162,13 @@ public class UserProcessController {
     }
 
     @PutMapping(
-            value = "/update-user-process",
+            value = "/update",
             consumes = {MediaType.APPLICATION_JSON},
             produces = {MediaType.APPLICATION_JSON})
     @Operation(
             summary = "Update a user contact data",
             description = "Update a user contact by passing in a JSON representation of product",
-            tags = {"Contact"},
+            tags = {"User Process"},
             responses = {
                     @ApiResponse(
                             description = "Success",

@@ -47,7 +47,6 @@ public class UserProcess {
     @UpdateTimestamp
     private Date updatedAt;
 
-
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     @JsonIgnore
@@ -78,7 +77,6 @@ public class UserProcess {
         this.hasBaptism = hasBaptism;
         this.user = user;
     }
-
 
     public Long getUserId() {
         return user.getId();
