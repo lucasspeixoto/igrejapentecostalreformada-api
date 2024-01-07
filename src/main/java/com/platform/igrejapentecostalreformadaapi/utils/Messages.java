@@ -13,5 +13,7 @@ public class Messages {
 
     public static final String CONTACT_IS_PRESENT_MESSAGE = "Usuário ja possui contato!";
 
+    public static final String IMAGE_IS_PRESENT_MESSAGE = "Usuário ja possui fotos!";
+
     public static final String PROCESS_IS_PRESENT_MESSAGE = "Usuário ja possui processo!";
 }

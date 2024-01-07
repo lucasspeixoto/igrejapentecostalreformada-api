@@ -155,9 +155,9 @@ public class ContactController {
             }
     )
     public ResponseEntity<ContactVO> create(@RequestBody ContactVO contactVO, @PathVariable Long userId) {
-     ContactVO contact = service.create(contactVO, userId);
+        ContactVO contact = service.create(contactVO, userId);
 
-     return ResponseEntity.ok().body(contact);
+        return ResponseEntity.ok().body(contact);
     }
 
     @PutMapping(
@@ -197,54 +197,54 @@ public class ContactController {
             }
     )
     public ResponseEntity<ContactVO> update(@RequestBody ContactVO contactVO) {
-     ContactVO contact = service.update(contactVO);
+        ContactVO contact = service.update(contactVO);
 
-     return ResponseEntity.ok().body(contact);
+        return ResponseEntity.ok().body(contact);
     }
 
     @GetMapping(
-            value = "/find-by-user-id/{id}",
+            value = "/get-by-user-id",
             produces = {MediaType.APPLICATION_JSON})
     @Operation(
-              summary = "Finds Contact data by user id",
-              description = "Service for find contact by user id",
-              tags = {"Contact"},
-              responses = {
-                      @ApiResponse(
-                              description = "Success",
-                              responseCode = "200",
-                              content = {
-                                      @Content(
-                                              mediaType = "application/json",
-                                              array = @ArraySchema(
-                                                      schema = @Schema(implementation = ContactVO.class))
-                                      )
-                              }
-                      ),
-                      @ApiResponse(
-                              description = "Bad Request",
-                              responseCode = "400",
-                              content = @Content
-                      ),
-                      @ApiResponse(
-                              description = "Unauthorized",
-                              responseCode = "401",
-                              content = @Content
-                      ),
-                      @ApiResponse(
-                              description = "Not Found",
-                              responseCode = "404",
-                              content = @Content
-                      ),
-                      @ApiResponse(
-                              description = "Internal Server Error",
-                              responseCode = "500",
-                              content = @Content
-                      )
-              }
-      )
-      public ResponseEntity<ContactVO> findByUserId(@PathVariable(value = "id") Long id) throws Exception {
+            summary = "Finds Contact data by user id",
+            description = "Service for find contact by user id",
+            tags = {"Contact"},
+            responses = {
+                    @ApiResponse(
+                            description = "Success",
+                            responseCode = "200",
+                            content = {
+                                    @Content(
+                                            mediaType = "application/json",
+                                            array = @ArraySchema(
+                                                    schema = @Schema(implementation = ContactVO.class))
+                                    )
+                            }
+                    ),
+                    @ApiResponse(
+                            description = "Bad Request",
+                            responseCode = "400",
+                            content = @Content
+                    ),
+                    @ApiResponse(
+                            description = "Unauthorized",
+                            responseCode = "401",
+                            content = @Content
+                    ),
+                    @ApiResponse(
+                            description = "Not Found",
+                            responseCode = "404",
+                            content = @Content
+                    ),
+                    @ApiResponse(
+                            description = "Internal Server Error",
+                            responseCode = "500",
+                            content = @Content
+                    )
+            }
+    )
+    public ResponseEntity<ContactVO> findByUserId(@RequestParam(value = "userId") Long id) throws Exception {
 
-       return ResponseEntity.ok(service.findByUserId(id));
-      }
+        return ResponseEntity.ok(service.findByUserId(id));
+    }
 }
