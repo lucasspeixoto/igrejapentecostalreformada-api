@@ -94,7 +94,7 @@ public class AuthController {
                                     @Content(
                                             mediaType = "application/json",
                                             array = @ArraySchema(
-                                                    schema = @Schema(implementation = PlatformResponse.class))
+                                                    schema = @Schema(implementation = RegisterVO.class))
                                     )
                             }
                     ),

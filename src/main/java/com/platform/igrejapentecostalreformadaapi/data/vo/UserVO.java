@@ -1,6 +1,5 @@
 package com.platform.igrejapentecostalreformadaapi.data.vo;
 
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.platform.igrejapentecostalreformadaapi.utils.ToCapitalizeCaseConverter;
 import com.platform.igrejapentecostalreformadaapi.utils.ToLowerCaseConverter;

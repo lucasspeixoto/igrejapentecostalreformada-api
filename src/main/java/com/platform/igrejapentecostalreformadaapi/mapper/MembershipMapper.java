@@ -1,4 +1,5 @@
 package com.platform.igrejapentecostalreformadaapi.mapper;
+
 import com.platform.igrejapentecostalreformadaapi.data.vo.MembershipVO;
 import com.platform.igrejapentecostalreformadaapi.entities.Membership;
 import org.mapstruct.Mapper;

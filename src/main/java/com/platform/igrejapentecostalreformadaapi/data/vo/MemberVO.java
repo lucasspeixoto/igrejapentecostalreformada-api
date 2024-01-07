@@ -20,7 +20,6 @@ public class MemberVO implements Serializable {
     private Boolean isRegisterFinished;
 
     public MemberVO() {
-
     }
 
     public MemberVO(Long id, String name, String craft, String membership, Boolean isRegisterFinished) {

@@ -20,7 +20,6 @@ public class ErrorDetails implements Serializable {
 
     private Integer status;
 
-
     public ErrorDetails() {
     }
 

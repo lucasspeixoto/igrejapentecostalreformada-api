@@ -119,7 +119,7 @@ public class ContactController {
     }
 
     @PostMapping(
-            value = "/create-contact-data/{userId}",
+            value = "/create/{userId}",
             consumes = {MediaType.APPLICATION_JSON},
             produces = {MediaType.APPLICATION_JSON})
     @Operation(
@@ -161,7 +161,7 @@ public class ContactController {
     }
 
     @PutMapping(
-            value = "/update-contact-data",
+            value = "/update",
             consumes = {MediaType.APPLICATION_JSON},
             produces = {MediaType.APPLICATION_JSON})
     @Operation(
