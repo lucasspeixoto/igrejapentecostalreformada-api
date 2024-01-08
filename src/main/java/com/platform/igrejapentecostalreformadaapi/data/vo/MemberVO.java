@@ -1,5 +1,8 @@
 package com.platform.igrejapentecostalreformadaapi.data.vo;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Lob;
+
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.Objects;
@@ -21,16 +24,19 @@ public class MemberVO implements Serializable {
 
     private Boolean isRegisterFinished;
 
+    private byte[] profilePhoto;
+
     public MemberVO() {
     }
 
-    public MemberVO(Long id, String name, String craft, String membership, String birthday, Boolean isRegisterFinished) {
+    public MemberVO(Long id, String name, String craft, String membership, String birthday, Boolean isRegisterFinished, byte[] profilePhoto) {
         this.id = id;
         this.name = name;
         this.craft = craft;
         this.membership = membership;
         this.birthday = birthday;
         this.isRegisterFinished = isRegisterFinished;
+        this.profilePhoto = profilePhoto;
     }
 
     public Long getId() {
@@ -79,6 +85,14 @@ public class MemberVO implements Serializable {
 
     public void setIsRegisterFinished(Boolean isRegisterFinished) {
         this.isRegisterFinished = isRegisterFinished;
+    }
+
+    public byte[] getProfilePhoto() {
+        return profilePhoto;
+    }
+
+    public void setProfilePhoto(byte[] profilePhoto) {
+        this.profilePhoto = profilePhoto;
     }
 
     @Override

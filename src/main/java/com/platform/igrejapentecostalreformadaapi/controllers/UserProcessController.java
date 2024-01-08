@@ -204,7 +204,7 @@ public class UserProcessController {
     }
 
     @GetMapping(
-            value = "/find-by-user-id/{id}",
+            value = "/get-by-user-id",
             produces = {MediaType.APPLICATION_JSON})
     @Operation(
             summary = "Finds User process by user id",
@@ -244,8 +244,8 @@ public class UserProcessController {
                     )
             }
     )
-    public ResponseEntity<UserProcessVO> findByUserId(@PathVariable(value = "id") Long id) throws Exception {
+    public ResponseEntity<UserProcessVO> findByUserId(@RequestParam(value = "userId") Long userId) throws Exception {
 
-        return ResponseEntity.ok(service.findByUserId(id));
+        return ResponseEntity.ok(service.findByUserId(userId));
     }
 }

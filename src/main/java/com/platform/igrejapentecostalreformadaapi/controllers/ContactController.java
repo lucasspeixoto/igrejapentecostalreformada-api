@@ -243,8 +243,8 @@ public class ContactController {
                     )
             }
     )
-    public ResponseEntity<ContactVO> findByUserId(@RequestParam(value = "userId") Long id) throws Exception {
+    public ResponseEntity<ContactVO> findByUserId(@RequestParam(value = "userId") Long userId) throws Exception {
 
-        return ResponseEntity.ok(service.findByUserId(id));
+        return ResponseEntity.ok(service.findByUserId(userId));
     }
 }

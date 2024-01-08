@@ -161,7 +161,7 @@ public class MembershipController {
     }
 
     @GetMapping(
-            value = "/find-by-user-id/{id}",
+            value = "/get-by-user-id",
             produces = {MediaType.APPLICATION_JSON})
     @Operation(
             summary = "Finds Membership data by user id",
@@ -201,9 +201,9 @@ public class MembershipController {
                     )
             }
     )
-    public ResponseEntity<MembershipVO> findByUserId(@PathVariable(value = "id") Long id) throws Exception {
+    public ResponseEntity<MembershipVO> findByUserId(@RequestParam(value = "userId") Long userId) throws Exception {
 
-        return ResponseEntity.ok(service.findByUserId(id));
+        return ResponseEntity.ok(service.findByUserId(userId));
     }
 
     @PutMapping(
