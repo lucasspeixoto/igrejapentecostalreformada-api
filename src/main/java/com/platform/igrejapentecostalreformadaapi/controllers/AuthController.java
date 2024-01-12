@@ -15,11 +15,9 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(value = "/auth", produces = MediaType.APPLICATION_JSON)
@@ -72,11 +70,11 @@ public class AuthController {
             }
     )
     public ResponseEntity<JWTAuthResponse> login(@Valid @RequestBody LoginVO loginVO) {
-        String token = authService.login(loginVO);
+        JWTAuthResponse jwtAuthResponse = authService.login(loginVO);
 
-        JWTAuthResponse jwtAuthResponse = new JWTAuthResponse();
+        //JWTAuthResponse jwtAuthResponse = new JWTAuthResponse();
 
-        jwtAuthResponse.setAccessToken(token);
+        //jwtAuthResponse.setAccessToken(token);
 
         return ResponseEntity.ok(jwtAuthResponse);
     }
@@ -127,6 +125,70 @@ public class AuthController {
         response.setStatus(201);
 
         return ResponseEntity.ok(response);
+    }
+
+    @PutMapping(value = "/refresh/{username}")
+    @Operation(
+            summary = "Register in the app",
+            description = "Service for create a new user",
+            tags = {"Authentication"},
+            responses = {
+                    @ApiResponse(
+                            description = "Success",
+                            responseCode = "200",
+                            content = {
+                                    @Content(
+                                            mediaType = "application/json",
+                                            array = @ArraySchema(
+                                                    schema = @Schema(implementation = RegisterVO.class))
+                                    )
+                            }
+                    ),
+                    @ApiResponse(
+                            description = "Bad Request",
+                            responseCode = "400",
+                            content = @Content
+                    ),
+                    @ApiResponse(
+                            description = "Unauthorized",
+                            responseCode = "401",
+                            content = @Content
+                    ),
+                    @ApiResponse(
+                            description = "Not Found",
+                            responseCode = "404",
+                            content = @Content
+                    ),
+                    @ApiResponse(
+                            description = "Internal Server Error",
+                            responseCode = "500",
+                            content = @Content
+                    )
+            }
+    )
+    public ResponseEntity<JWTAuthResponse> refreshToken(
+            @PathVariable("username") String username,
+            @RequestHeader("Authorization") String refreshToken
+    ) {
+        //if (checkIfParamsIsNotNull(username, refreshToken))
+            //return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Invalid client request!");
+
+        var token = authService.refreshToken(username, refreshToken);
+
+        //if (token == null) return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Invalid client request!");
+
+        return ResponseEntity.ok(token);
+    }
+
+    private boolean checkIfParamsIsNotNull(String username, String refreshToken) {
+        return refreshToken == null || refreshToken.isBlank() ||
+                username == null || username.isBlank();
+    }
+
+
+    private boolean checkIfParamsIsNotNull(LoginVO data) {
+        return data == null || data.getUsernameOrEmail() == null || data.getUsernameOrEmail().isBlank()
+                || data.getPassword() == null || data.getPassword().isBlank();
     }
 
 }

@@ -66,9 +66,9 @@ public class SecurityConfig {
                         .authenticationEntryPoint(authenticationEntryPoint)
                 ).sessionManagement(session -> session
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                );
+                ).addFilterBefore(authenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
-        http.addFilterBefore(authenticationFilter, UsernamePasswordAuthenticationFilter.class);
+        //http.addFilterBefore(authenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }

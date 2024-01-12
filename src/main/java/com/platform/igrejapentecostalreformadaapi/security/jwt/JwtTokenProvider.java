@@ -1,13 +1,12 @@
 package com.platform.igrejapentecostalreformadaapi.security.jwt;
 
-import com.platform.igrejapentecostalreformadaapi.exceptions.PlatformException;
+import com.platform.igrejapentecostalreformadaapi.data.response.JWTAuthResponse;
+import com.platform.igrejapentecostalreformadaapi.exceptions.InvalidJwtAuthenticationException;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.io.Encoders;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpStatus;
-import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 import javax.crypto.SecretKey;
@@ -20,22 +19,64 @@ public class JwtTokenProvider {
     @Value("${security.jwt.token.secret-key:secret}")
     private String jwtSecret;
 
-    @Value("${security.jwt.token.expire-length:3600000}")
-    private long jwtExpirationDate = 3600000;
+    @Value("${security.jwt.token.expire-length:5000}")
+    private long jwtExpirationDate = 5000;
 
-    public String generateToken(Authentication authentication) {
-        String username = authentication.getName();
+    public JWTAuthResponse generateToken(String username) {
 
         Date currentDate = new Date();
 
         Date expireDate = new Date(currentDate.getTime() + jwtExpirationDate);
 
+        String accessToken = getAccessToken(username, currentDate, expireDate);
+
+        String refreshToken = getRefreshToken(username, currentDate);
+
+        return new JWTAuthResponse(username, true, currentDate, expireDate, accessToken, refreshToken);
+    }
+
+    private String getAccessToken(String username, Date currentDate, Date expireDate) {
+
         return Jwts.builder()
                 .setSubject(username)
-                .setIssuedAt(new Date())
+                .setIssuedAt(currentDate)
                 .setExpiration(expireDate)
                 .signWith(key())
                 .compact();
+    }
+
+    private String getRefreshToken(String username, Date currentDate) {
+
+        Date expireDate = new Date(currentDate.getTime() + (this.jwtExpirationDate * 3));
+
+        return Jwts.builder()
+                .setSubject(username)
+                .setIssuedAt(currentDate)
+                .setExpiration(expireDate)
+                .signWith(key())
+                .compact();
+    }
+
+    public String getUserNameFromJwtToken(String token) {
+        //return Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token).getBody().getSubject();
+        return Jwts
+                .parserBuilder()
+                .setSigningKey(key())
+                .build()
+                .parseClaimsJws(token)
+                .getBody()
+                .getSubject();
+
+
+    }
+
+    public JWTAuthResponse generateRefreshedToken(String refreshToken) {
+        if (refreshToken.contains("Bearer ")) refreshToken =
+                refreshToken.substring("Bearer ".length());
+
+        String username = getUserNameFromJwtToken(refreshToken);
+
+        return generateToken(username);
     }
 
     private Key key() {
@@ -61,7 +102,11 @@ public class JwtTokenProvider {
                     .build()
                     .parse(token);
             return true;
-        } catch (MalformedJwtException ex) {
+        }  catch (Exception ex) {
+            throw new InvalidJwtAuthenticationException("Expired or invalid token!");
+        }
+        /*
+        catch (MalformedJwtException ex) {
             throw new PlatformException(HttpStatus.BAD_REQUEST, "Invalid JWT token");
         } catch (ExpiredJwtException ex) {
             throw new PlatformException(HttpStatus.BAD_REQUEST, "Expired JWT token");
@@ -70,5 +115,7 @@ public class JwtTokenProvider {
         } catch (IllegalArgumentException ex) {
             throw new PlatformException(HttpStatus.BAD_REQUEST, "JWT claims string is empty.");
         }
+
+         */
     }
 }

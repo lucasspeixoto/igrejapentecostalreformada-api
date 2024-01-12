@@ -1,5 +1,6 @@
 package com.platform.igrejapentecostalreformadaapi.services;
 
+import com.platform.igrejapentecostalreformadaapi.data.response.JWTAuthResponse;
 import com.platform.igrejapentecostalreformadaapi.data.response.PlatformResponse;
 import com.platform.igrejapentecostalreformadaapi.data.vo.LoginVO;
 import com.platform.igrejapentecostalreformadaapi.data.vo.RegisterVO;
@@ -18,6 +19,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -49,21 +51,45 @@ public class AuthService {
     @Autowired
     private UserProcessService userProcessService;
 
-    public String login(@Valid LoginVO loginVO) {
+    public JWTAuthResponse login(@Valid LoginVO loginVO) {
 
-        if (!userRepository.existsByUsername(loginVO.getUsernameOrEmail())) {
+        String username = loginVO.getUsernameOrEmail();
+        String password = loginVO.getPassword();
+
+        if (!userRepository.existsByUsername(username)) {
             throw new PlatformException(HttpStatus.FORBIDDEN, Messages.LOGIN_EMAIL_PASSWORD_MESSAGE);
         }
+
+        this.userRepository.findByUsernameOrEmail(username, username)
+                .orElseThrow(() -> new UsernameNotFoundException(
+                        "Usuário " + username + " não encontrado!")
+                );
 
         Authentication authentication = authenticationManager
                 .authenticate(
                         new UsernamePasswordAuthenticationToken(
-                                loginVO.getUsernameOrEmail(),
-                                loginVO.getPassword()));
+                                username,
+                                password));
+
+        //System.out.println(authentication.getName());
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
-        return jwtTokenProvider.generateToken(authentication);
+        return jwtTokenProvider.generateToken(username);
+    }
+
+    public JWTAuthResponse refreshToken(String username, String refreshToken) {
+
+        var tokenResponse = new JWTAuthResponse();
+
+        this.userRepository.findByUsernameOrEmail(username, username)
+                .orElseThrow(() -> new UsernameNotFoundException(
+                        "Usuário " + username + " não encontrado!")
+                );
+
+        tokenResponse = jwtTokenProvider.generateRefreshedToken(refreshToken);
+
+        return tokenResponse;
     }
 
     public PlatformResponse register(@Valid RegisterVO registerVO) {
@@ -106,7 +132,7 @@ public class AuthService {
                     Messages.REGISTER_SUCCESS_DETAIL);
 
         } else {
-            throw new PlatformException(HttpStatus.NOT_FOUND, "User role not found!");
+            throw new PlatformException(HttpStatus.NOT_FOUND, "Permissões de usuário não encontradas!");
         }
     }
 
