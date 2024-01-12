@@ -14,14 +14,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.logging.Logger;
 
 @RestController
 @RequestMapping(value = "/api/v1/membership")
 @Tag(name = "Membership", description = "Endpoints for Managing Membership")
 public class MembershipController {
-
-    private final Logger logger = Logger.getLogger(MembershipService.class.getName());
 
     @Autowired
     private MembershipService service;
@@ -161,7 +158,7 @@ public class MembershipController {
     }
 
     @GetMapping(
-            value = "/find-by-user-id/{id}",
+            value = "/get-by-user-id",
             produces = {MediaType.APPLICATION_JSON})
     @Operation(
             summary = "Finds Membership data by user id",
@@ -201,9 +198,9 @@ public class MembershipController {
                     )
             }
     )
-    public ResponseEntity<MembershipVO> findByUserId(@PathVariable(value = "id") Long id) throws Exception {
+    public ResponseEntity<MembershipVO> findByUserId(@RequestParam(value = "userId") Long userId) throws Exception {
 
-        return ResponseEntity.ok(service.findByUserId(id));
+        return ResponseEntity.ok(service.findByUserId(userId));
     }
 
     @PutMapping(

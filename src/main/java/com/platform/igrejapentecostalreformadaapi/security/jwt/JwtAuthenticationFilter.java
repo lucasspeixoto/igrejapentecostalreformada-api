@@ -1,4 +1,4 @@
-package com.platform.igrejapentecostalreformadaapi.security;
+package com.platform.igrejapentecostalreformadaapi.security.jwt;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;

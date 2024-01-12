@@ -88,11 +88,9 @@ public class ContactService {
 
         Contact contact = this.mapper.convertVOToEntity(contactVO);
 
-
         Contact newContact = this.repository.save(contact);
 
         return this.mapper.convertEntityToVO(newContact);
-
     }
 
     public ContactVO update(ContactVO contactVO) {

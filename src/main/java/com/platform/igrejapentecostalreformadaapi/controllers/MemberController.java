@@ -1,7 +1,6 @@
 package com.platform.igrejapentecostalreformadaapi.controllers;
 
 import com.platform.igrejapentecostalreformadaapi.data.vo.MemberVO;
-import com.platform.igrejapentecostalreformadaapi.services.ContactService;
 import com.platform.igrejapentecostalreformadaapi.services.MemberService;
 import com.platform.igrejapentecostalreformadaapi.utils.MediaType;
 import io.swagger.v3.oas.annotations.Operation;
@@ -16,14 +15,11 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.logging.Logger;
 
 @RestController
 @RequestMapping(value = "/api/v1/members")
 @Tag(name = "Members", description = "Endpoints for Members data")
 public class MemberController {
-
-    private final Logger logger = Logger.getLogger(ContactService.class.getName());
 
     @Autowired
     private MemberService memberService;

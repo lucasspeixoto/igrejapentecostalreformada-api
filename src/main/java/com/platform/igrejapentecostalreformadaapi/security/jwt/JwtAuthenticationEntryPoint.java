@@ -1,4 +1,4 @@
-package com.platform.igrejapentecostalreformadaapi.security;
+package com.platform.igrejapentecostalreformadaapi.security.jwt;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.ServletException;

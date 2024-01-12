@@ -1,14 +1,8 @@
 package com.platform.igrejapentecostalreformadaapi.services;
 
 import com.platform.igrejapentecostalreformadaapi.data.vo.MemberVO;
-import com.platform.igrejapentecostalreformadaapi.entities.Contact;
-import com.platform.igrejapentecostalreformadaapi.entities.User;
-import com.platform.igrejapentecostalreformadaapi.entities.Membership;
-import com.platform.igrejapentecostalreformadaapi.entities.UserProcess;
-import com.platform.igrejapentecostalreformadaapi.repositories.ContactRepository;
-import com.platform.igrejapentecostalreformadaapi.repositories.MembershipRepository;
-import com.platform.igrejapentecostalreformadaapi.repositories.UserProcessRepository;
-import com.platform.igrejapentecostalreformadaapi.repositories.UserRepository;
+import com.platform.igrejapentecostalreformadaapi.entities.*;
+import com.platform.igrejapentecostalreformadaapi.repositories.*;
 import com.platform.igrejapentecostalreformadaapi.utils.Transform;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,6 +27,9 @@ public class MemberService {
     private ContactRepository contactRepository;
 
     @Autowired
+    private ImageRepository imageRepository;
+
+    @Autowired
     private UserProcessRepository userProcessRepository;
 
     public List<MemberVO> findAll() throws Exception {
@@ -53,6 +50,8 @@ public class MemberService {
             Optional<UserProcess> userProcess = this.userProcessRepository.findByUserId(userId);
 
             Optional<Contact> contact = this.contactRepository.findByUserId(userId);
+
+            Optional<Image> image = this.imageRepository.findByUserId(userId);
 
             member.setId(userId);
             member.setName(Transform.getFirstName(user.getName()));
@@ -79,6 +78,10 @@ public class MemberService {
                         selectedUserProcess.isHasMember()
                 );
             }
+
+            image.ifPresent(value -> {
+                member.setProfilePhoto(value.getProfilePhoto());
+            });
 
             members.add(member);
         }

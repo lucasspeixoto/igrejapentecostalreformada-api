@@ -129,7 +129,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
             errorMessages.add(message);
         });
 
-        String concatenedErrors = String.join(",", errorMessages);
+        String concatenedErrors = String.join(" ", errorMessages);
 
         ErrorDetails errorDetails = new ErrorDetails(
                 Instant.now(),
