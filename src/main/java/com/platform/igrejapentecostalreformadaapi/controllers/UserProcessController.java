@@ -1,7 +1,6 @@
 package com.platform.igrejapentecostalreformadaapi.controllers;
 
 import com.platform.igrejapentecostalreformadaapi.data.vo.UserProcessVO;
-import com.platform.igrejapentecostalreformadaapi.services.ContactService;
 import com.platform.igrejapentecostalreformadaapi.services.UserProcessService;
 import com.platform.igrejapentecostalreformadaapi.utils.MediaType;
 import io.swagger.v3.oas.annotations.Operation;
@@ -15,14 +14,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.logging.Logger;
 
 @RestController
 @RequestMapping(value = "/api/v1/user-process")
 @Tag(name = "User Process", description = "Endpoints for Managing User Process")
 public class UserProcessController {
-
-    private final Logger logger = Logger.getLogger(ContactService.class.getName());
 
     @Autowired
     private UserProcessService service;

@@ -14,14 +14,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.logging.Logger;
 
 @RestController
 @RequestMapping(value = "/api/v1/contacts")
 @Tag(name = "Contact", description = "Endpoints for Managing Contacts")
 public class ContactController {
-
-    private final Logger logger = Logger.getLogger(ContactService.class.getName());
 
     @Autowired
     private ContactService service;

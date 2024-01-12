@@ -34,7 +34,6 @@ public class User {
     )
     private Set<Role> roles = new HashSet<>();
 
-
     public User() {
     }
 

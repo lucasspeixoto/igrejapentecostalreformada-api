@@ -1,8 +1,8 @@
 package com.platform.igrejapentecostalreformadaapi.config;
 
 import com.platform.igrejapentecostalreformadaapi.repositories.UserRepository;
-import com.platform.igrejapentecostalreformadaapi.security.JwtAuthenticationEntryPoint;
-import com.platform.igrejapentecostalreformadaapi.security.JwtAuthenticationFilter;
+import com.platform.igrejapentecostalreformadaapi.security.jwt.JwtAuthenticationEntryPoint;
+import com.platform.igrejapentecostalreformadaapi.security.jwt.JwtAuthenticationFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

@@ -182,6 +182,5 @@ public class UserProcess {
         return Objects.hash(getId());
     }
 
-
 }
 

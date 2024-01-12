@@ -9,7 +9,7 @@ import com.platform.igrejapentecostalreformadaapi.entities.User;
 import com.platform.igrejapentecostalreformadaapi.exceptions.PlatformException;
 import com.platform.igrejapentecostalreformadaapi.repositories.RoleRepository;
 import com.platform.igrejapentecostalreformadaapi.repositories.UserRepository;
-import com.platform.igrejapentecostalreformadaapi.security.JwtTokenProvider;
+import com.platform.igrejapentecostalreformadaapi.security.jwt.JwtTokenProvider;
 import com.platform.igrejapentecostalreformadaapi.utils.Messages;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -70,12 +70,12 @@ public class AuthService {
 
         // Check if this user already exists
         if (userRepository.existsByUsername(registerVO.getUsername())) {
-            throw new PlatformException(HttpStatus.FORBIDDEN, Messages.REGISTER_ALREADY_EXISTS_EMAIL_MESSAGE);
+            throw new PlatformException(HttpStatus.FORBIDDEN, Messages.REGISTER_ALREADY_EXISTS_USERNAME_MESSAGE);
         }
 
         // Check if this user email already exists
         if (userRepository.existsByEmail(registerVO.getEmail())) {
-            throw new PlatformException(HttpStatus.FORBIDDEN, Messages.REGISTER_ALREADY_EXISTS_USERNAME_MESSAGE);
+            throw new PlatformException(HttpStatus.FORBIDDEN, Messages.REGISTER_ALREADY_EXISTS_EMAIL_MESSAGE);
         }
 
         User user = new User();

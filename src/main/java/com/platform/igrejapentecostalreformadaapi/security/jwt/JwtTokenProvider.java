@@ -1,4 +1,4 @@
-package com.platform.igrejapentecostalreformadaapi.security;
+package com.platform.igrejapentecostalreformadaapi.security.jwt;
 
 import com.platform.igrejapentecostalreformadaapi.exceptions.PlatformException;
 import io.jsonwebtoken.*;

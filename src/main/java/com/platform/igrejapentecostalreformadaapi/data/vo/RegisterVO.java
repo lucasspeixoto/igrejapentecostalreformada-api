@@ -8,26 +8,27 @@ import java.util.Objects;
 
 public class RegisterVO {
 
-    @NotEmpty(message = "Name should not be null or empty")
-    @Size(min = 3, message = "Name body must be minimum 3 characters")
+    @NotEmpty(message = "O nome é obrigatório!")
+    @Size(min = 3, message = "O nome precisa conter pelo menos 3 caracteres!")
     private String name;
 
-    @NotEmpty(message = "Username should not be null or empty")
-    @Size(min = 3, message = "Username body must be minimum 3 characters")
+    @NotEmpty(message = "O nome de usuário é obrigatório!")
+    @Size(min = 3, message = "O nome de usuário precisa conter pelo menos 3 caracteres!")
     private String username;
 
-    @NotEmpty(message = "Email should not be null or empty")
-    @Email(message = "Invalid Email format")
+    @NotEmpty(message = "O E-mail é obrigatório!")
+    @Email(message = "E-mail incorreto!")
     private String email;
 
-    @NotEmpty(message = "Password should not be null or empty")
-    @Size(min = 3, message = "Password body must be minimum 3 characters")
+    @NotEmpty(message = "A senha é obrigatória!")
+    @Size(min = 3, message = "A senha precisa conter no mínimo 3 caracteres!")
     private String password;
 
     public RegisterVO() {
     }
 
-    public RegisterVO(String name, String username, String email, String password) {        this.name = name;
+    public RegisterVO(String name, String username, String email, String password) {
+        this.name = name;
         this.username = username;
         this.email = email;
         this.password = password;

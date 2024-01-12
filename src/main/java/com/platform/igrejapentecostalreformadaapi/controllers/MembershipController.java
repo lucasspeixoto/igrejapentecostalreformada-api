@@ -14,14 +14,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.logging.Logger;
 
 @RestController
 @RequestMapping(value = "/api/v1/membership")
 @Tag(name = "Membership", description = "Endpoints for Managing Membership")
 public class MembershipController {
-
-    private final Logger logger = Logger.getLogger(MembershipService.class.getName());
 
     @Autowired
     private MembershipService service;
