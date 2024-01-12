@@ -1,5 +1,7 @@
 package com.platform.igrejapentecostalreformadaapi.data.response;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.Date;
 import java.util.Objects;
 
@@ -9,15 +11,17 @@ public class JWTAuthResponse {
 
     private Boolean authenticated;
 
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone="America/Sao_Paulo")
     private Date created;
 
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone="America/Sao_Paulo")
     private Date expiration;
 
     private String accessToken;
 
     private String refreshToken;
-    
-    private String tokenType = "Bearer";
+
+    private String tokenType;
 
     public JWTAuthResponse() {
     }
@@ -29,6 +33,7 @@ public class JWTAuthResponse {
         this.expiration = expiration;
         this.accessToken = accessToken;
         this.refreshToken = refreshToken;
+        this.tokenType = "Bearer";
     }
 
     public String getUsername() {
