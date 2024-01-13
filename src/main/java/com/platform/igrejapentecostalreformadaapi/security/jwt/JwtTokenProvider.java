@@ -66,8 +66,6 @@ public class JwtTokenProvider {
                 .parseClaimsJws(token)
                 .getBody()
                 .getSubject();
-
-
     }
 
     public JWTAuthResponse generateRefreshedToken(String refreshToken) {
