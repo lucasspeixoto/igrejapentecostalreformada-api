@@ -15,7 +15,6 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -71,10 +70,6 @@ public class AuthController {
     )
     public ResponseEntity<JWTAuthResponse> login(@Valid @RequestBody LoginVO loginVO) {
         JWTAuthResponse jwtAuthResponse = authService.login(loginVO);
-
-        //JWTAuthResponse jwtAuthResponse = new JWTAuthResponse();
-
-        //jwtAuthResponse.setAccessToken(token);
 
         return ResponseEntity.ok(jwtAuthResponse);
     }
