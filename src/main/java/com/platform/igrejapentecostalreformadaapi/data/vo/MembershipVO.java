@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.platform.igrejapentecostalreformadaapi.entities.User;
+import jakarta.validation.constraints.NotEmpty;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -18,12 +19,16 @@ public class MembershipVO implements Serializable {
 
     private Long id;
 
+    @NotEmpty(message = "A membresia é obrigatória!")
     private String membership;
 
+    @NotEmpty(message = "O ofício é obrigatório!")
     private String craft;
 
+    @NotEmpty(message = "A última igreja que frequentou é obrigatório!")
     private String community;
 
+    @NotEmpty(message = "O principal interesse é obrigatório!")
     private String interest;
 
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "America/Sao_Paulo")

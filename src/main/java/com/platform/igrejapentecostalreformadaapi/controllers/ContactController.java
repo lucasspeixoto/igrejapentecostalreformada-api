@@ -9,6 +9,7 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -151,7 +152,7 @@ public class ContactController {
                     )
             }
     )
-    public ResponseEntity<ContactVO> create(@RequestBody ContactVO contactVO, @PathVariable Long userId) {
+    public ResponseEntity<ContactVO> create(@RequestBody @Valid ContactVO contactVO, @PathVariable Long userId) {
         ContactVO contact = service.create(contactVO, userId);
 
         return ResponseEntity.ok().body(contact);
@@ -193,7 +194,7 @@ public class ContactController {
                     )
             }
     )
-    public ResponseEntity<ContactVO> update(@RequestBody ContactVO contactVO) {
+    public ResponseEntity<ContactVO> update(@RequestBody @Valid ContactVO contactVO) {
         ContactVO contact = service.update(contactVO);
 
         return ResponseEntity.ok().body(contact);

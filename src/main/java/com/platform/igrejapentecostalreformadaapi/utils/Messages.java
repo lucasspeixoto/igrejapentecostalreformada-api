@@ -13,6 +13,8 @@ public class Messages {
 
     public static final String CONTACT_IS_PRESENT_MESSAGE = "Usuário ja possui contato!";
 
+    public static final String ADDRESS_IS_PRESENT_MESSAGE = "Usuário ja possui endereço!";
+
     public static final String DOC_IS_PRESENT_MESSAGE = "Usuário ja possui documento!";
 
     public static final String PROFILE_PHOTO_IS_PRESENT_MESSAGE = "Usuário ja possui foto de perfil!";

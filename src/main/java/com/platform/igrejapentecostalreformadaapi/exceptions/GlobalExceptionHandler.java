@@ -2,6 +2,7 @@ package com.platform.igrejapentecostalreformadaapi.exceptions;
 
 import com.platform.igrejapentecostalreformadaapi.data.vo.ErrorDetails;
 import com.platform.igrejapentecostalreformadaapi.utils.MediaType;
+import jakarta.validation.UnexpectedTypeException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
@@ -144,4 +145,27 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
                 .body(errorDetails);
 
     }
+
+    @ExceptionHandler({UnexpectedTypeException.class})
+    public ResponseEntity<ErrorDetails> handleUnexpectedTypeExceptionException(
+            UnexpectedTypeException exception,
+            WebRequest webRequest
+    ) {
+
+        HttpStatus status = HttpStatus.BAD_REQUEST;
+
+        ErrorDetails errorDetails = new ErrorDetails(
+                Instant.now(),
+                exception.getMessage(),
+                webRequest.getDescription(false),
+                status.value()
+        );
+
+        return ResponseEntity
+                .status(status)
+                .contentType(org.springframework.http.MediaType.valueOf(MediaType.APPLICATION_JSON))
+                .body(errorDetails);
+    }
+
+    //MultipartException
 }

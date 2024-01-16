@@ -9,6 +9,7 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -103,7 +104,7 @@ public class MembershipController {
                     )
             }
     )
-    public ResponseEntity<MembershipVO> create(@RequestBody MembershipVO membershipVO, @PathVariable Long userId) {
+    public ResponseEntity<MembershipVO> create(@RequestBody @Valid MembershipVO membershipVO, @PathVariable Long userId) {
         MembershipVO contact = service.create(membershipVO, userId);
 
         return ResponseEntity.ok().body(contact);
@@ -239,7 +240,7 @@ public class MembershipController {
                     )
             }
     )
-    public ResponseEntity<MembershipVO> update(@RequestBody MembershipVO membershipVO) {
+    public ResponseEntity<MembershipVO> update(@RequestBody @Valid MembershipVO membershipVO) {
         MembershipVO contact = service.update(membershipVO);
 
         return ResponseEntity.ok().body(contact);
