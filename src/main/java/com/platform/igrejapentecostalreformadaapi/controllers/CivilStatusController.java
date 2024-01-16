@@ -12,6 +12,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -116,6 +117,7 @@ public class CivilStatusController {
         return ResponseEntity.ok().body(entityVO);
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping(
             value = "/create",
             consumes = {MediaType.APPLICATION_JSON},
@@ -158,6 +160,7 @@ public class CivilStatusController {
         return ResponseEntity.ok().body(contact);
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PutMapping(
             value = "/update",
             consumes = {MediaType.APPLICATION_JSON},
@@ -200,6 +203,7 @@ public class CivilStatusController {
         return ResponseEntity.ok().body(civilStatus);
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @DeleteMapping(
             value = "/{id}",
             produces = {MediaType.APPLICATION_JSON}
