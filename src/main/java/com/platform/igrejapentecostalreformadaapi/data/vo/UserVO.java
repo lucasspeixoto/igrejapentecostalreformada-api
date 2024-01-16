@@ -3,6 +3,7 @@ package com.platform.igrejapentecostalreformadaapi.data.vo;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.platform.igrejapentecostalreformadaapi.utils.ToCapitalizeCaseConverter;
 import com.platform.igrejapentecostalreformadaapi.utils.ToLowerCaseConverter;
+import jakarta.validation.constraints.Email;
 
 import java.util.Objects;
 
@@ -17,6 +18,7 @@ public class UserVO {
     private String username;
 
     @JsonSerialize(converter = ToLowerCaseConverter.class)
+    //@Email(message = "Insira um e-mail válido!")
     private String email;
 
     public UserVO() {

@@ -4,13 +4,18 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.platform.igrejapentecostalreformadaapi.entities.User;
+import jakarta.persistence.Column;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
 
-@JsonPropertyOrder({"id", "birthday", "cellphone", "telephone", "sex",  "created_at", "cellphone"})
+@JsonPropertyOrder({"id", "birthday", "cellphone", "telephone", "sex", "created_at", "cellphone"})
 public class ContactVO implements Serializable {
 
     @Serial
@@ -18,18 +23,23 @@ public class ContactVO implements Serializable {
 
     private Long id;
 
+    @NotNull(message = "O aniversário é obrigatório!")
     private Date birthday;
 
+    @NotEmpty(message = "O celular é obrigatório!")
+    @Size(min = 10, max = 11, message = "Digite um número válido de celular!")
     private String cellphone;
 
+    @Size(min = 10, max = 11, message = "Digite um número válido de telefone!")
     private String telephone;
 
+    @NotEmpty(message = "O sexo é obrigatório!")
     private String sex;
 
-    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone="America/Sao_Paulo")
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "America/Sao_Paulo")
     private Date createdAt;
 
-    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone="America/Sao_Paulo")
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "America/Sao_Paulo")
     private Date updatedAt;
 
     @JsonIgnore
