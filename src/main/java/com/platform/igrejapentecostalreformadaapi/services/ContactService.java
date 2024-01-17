@@ -46,7 +46,7 @@ public class ContactService {
         Contact entity = repository
                 .findById(id)
                 .orElseThrow(
-                        () -> new ResourceNotFoundException("Contact", "id", id)
+                        () -> new ResourceNotFoundException("Contato", "id", id)
                 );
 
         return this.mapper.convertEntityToVO(entity);
