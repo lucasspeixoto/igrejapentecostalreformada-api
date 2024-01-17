@@ -3,7 +3,7 @@ package com.platform.igrejapentecostalreformadaapi.services;
 import com.platform.igrejapentecostalreformadaapi.data.vo.UserVO;
 import com.platform.igrejapentecostalreformadaapi.entities.User;
 import com.platform.igrejapentecostalreformadaapi.exceptions.ResourceNotFoundException;
-import com.platform.igrejapentecostalreformadaapi.mapper.UserMapper;
+import com.platform.igrejapentecostalreformadaapi.mappers.UserMapper;
 import com.platform.igrejapentecostalreformadaapi.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -6,7 +6,7 @@ import com.platform.igrejapentecostalreformadaapi.data.vo.LoginVO;
 import com.platform.igrejapentecostalreformadaapi.data.vo.RegisterVO;
 import com.platform.igrejapentecostalreformadaapi.services.AuthService;
 import com.platform.igrejapentecostalreformadaapi.services.UserService;
-import com.platform.igrejapentecostalreformadaapi.utils.MediaType;
+import com.platform.igrejapentecostalreformadaapi.utils.constants.MediaType;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;

@@ -5,10 +5,10 @@ import com.platform.igrejapentecostalreformadaapi.entities.User;
 import com.platform.igrejapentecostalreformadaapi.entities.UserProcess;
 import com.platform.igrejapentecostalreformadaapi.exceptions.ResourceAlreadyExistsException;
 import com.platform.igrejapentecostalreformadaapi.exceptions.ResourceNotFoundException;
-import com.platform.igrejapentecostalreformadaapi.mapper.UserProcessMapper;
+import com.platform.igrejapentecostalreformadaapi.mappers.UserProcessMapper;
 import com.platform.igrejapentecostalreformadaapi.repositories.UserProcessRepository;
 import com.platform.igrejapentecostalreformadaapi.repositories.UserRepository;
-import com.platform.igrejapentecostalreformadaapi.utils.Messages;
+import com.platform.igrejapentecostalreformadaapi.utils.constants.Messages;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

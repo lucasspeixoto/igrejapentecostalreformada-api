@@ -2,8 +2,12 @@ package com.platform.igrejapentecostalreformadaapi.services;
 
 import com.platform.igrejapentecostalreformadaapi.data.vo.MemberVO;
 import com.platform.igrejapentecostalreformadaapi.entities.*;
+import com.platform.igrejapentecostalreformadaapi.entities.register.Contact;
+import com.platform.igrejapentecostalreformadaapi.entities.register.Membership;
 import com.platform.igrejapentecostalreformadaapi.repositories.*;
-import com.platform.igrejapentecostalreformadaapi.utils.Transform;
+import com.platform.igrejapentecostalreformadaapi.repositories.register.ContactRepository;
+import com.platform.igrejapentecostalreformadaapi.repositories.register.MembershipRepository;
+import com.platform.igrejapentecostalreformadaapi.utils.services.Transform;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

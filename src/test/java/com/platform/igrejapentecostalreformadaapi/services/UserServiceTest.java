@@ -1,7 +1,7 @@
 package com.platform.igrejapentecostalreformadaapi.services;
 
 import com.platform.igrejapentecostalreformadaapi.entities.User;
-import com.platform.igrejapentecostalreformadaapi.mapper.UserMapper;
+import com.platform.igrejapentecostalreformadaapi.mappers.UserMapper;
 import com.platform.igrejapentecostalreformadaapi.repositories.UserRepository;
 import com.platform.igrejapentecostalreformadaapi.unittests.mapper.mocks.MockUser;
 import org.junit.jupiter.api.BeforeEach;

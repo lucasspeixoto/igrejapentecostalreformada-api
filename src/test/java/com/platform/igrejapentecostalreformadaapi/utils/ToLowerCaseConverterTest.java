@@ -1,5 +1,6 @@
 package com.platform.igrejapentecostalreformadaapi.utils;
 
+import com.platform.igrejapentecostalreformadaapi.utils.converters.ToLowerCaseConverter;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 

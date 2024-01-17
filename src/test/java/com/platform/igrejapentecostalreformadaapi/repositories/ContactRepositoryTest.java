@@ -1,10 +1,11 @@
 package com.platform.igrejapentecostalreformadaapi.repositories;
 
-import com.platform.igrejapentecostalreformadaapi.entities.Contact;
+import com.platform.igrejapentecostalreformadaapi.entities.register.Contact;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 import com.platform.igrejapentecostalreformadaapi.entities.User;
+import com.platform.igrejapentecostalreformadaapi.repositories.register.ContactRepository;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;

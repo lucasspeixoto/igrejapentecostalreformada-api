@@ -1,6 +1,6 @@
 package com.platform.igrejapentecostalreformadaapi.exceptions;
 
-import com.platform.igrejapentecostalreformadaapi.utils.Messages;
+import com.platform.igrejapentecostalreformadaapi.utils.constants.Messages;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 

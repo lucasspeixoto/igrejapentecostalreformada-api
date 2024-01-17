@@ -1,7 +1,7 @@
 package com.platform.igrejapentecostalreformadaapi.exceptions;
 
 import com.platform.igrejapentecostalreformadaapi.data.vo.ErrorDetails;
-import com.platform.igrejapentecostalreformadaapi.utils.MediaType;
+import com.platform.igrejapentecostalreformadaapi.utils.constants.MediaType;
 import jakarta.validation.UnexpectedTypeException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;

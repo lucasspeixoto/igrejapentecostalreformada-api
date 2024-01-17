@@ -2,8 +2,8 @@ package com.platform.igrejapentecostalreformadaapi.services;
 
 import com.platform.igrejapentecostalreformadaapi.data.vo.UserProcessVO;
 import com.platform.igrejapentecostalreformadaapi.entities.UserProcess;
-import com.platform.igrejapentecostalreformadaapi.mapper.UserMapper;
-import com.platform.igrejapentecostalreformadaapi.mapper.UserProcessMapper;
+import com.platform.igrejapentecostalreformadaapi.mappers.UserMapper;
+import com.platform.igrejapentecostalreformadaapi.mappers.UserProcessMapper;
 import com.platform.igrejapentecostalreformadaapi.repositories.UserProcessRepository;
 import com.platform.igrejapentecostalreformadaapi.repositories.UserRepository;
 import com.platform.igrejapentecostalreformadaapi.unittests.mapper.mocks.MockUser;
