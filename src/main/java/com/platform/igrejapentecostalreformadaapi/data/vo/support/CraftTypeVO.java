@@ -9,16 +9,16 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
 
-@JsonPropertyOrder({"id", "membership_type", "created_at", "updated_at"})
-public class MembershipTypeVO implements Serializable {
+@JsonPropertyOrder({"id", "craft_type", "created_at", "updated_at"})
+public class CraftTypeVO implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 1L;
 
     private Long id;
 
-    @NotEmpty(message = "O tipo de membresia é obrigatório!")
-    private String membershipType;
+    @NotEmpty(message = "O ofício é obrigatório!")
+    private String craftType;
 
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "America/Sao_Paulo")
     private Date createdAt;
@@ -26,12 +26,12 @@ public class MembershipTypeVO implements Serializable {
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "America/Sao_Paulo")
     private Date updatedAt;
 
-    public MembershipTypeVO() {
+    public CraftTypeVO() {
     }
 
-    public MembershipTypeVO(Long id, String membershipType) {
+    public CraftTypeVO(Long id, String craftType) {
         this.id = id;
-        this.membershipType = membershipType;
+        this.craftType = craftType;
     }
 
     public Long getId() {
@@ -42,12 +42,12 @@ public class MembershipTypeVO implements Serializable {
         this.id = id;
     }
 
-    public String getMembershipType() {
-        return membershipType;
+    public String getCraftType() {
+        return craftType;
     }
 
-    public void setMembershipType(String membershipType) {
-        this.membershipType = membershipType;
+    public void setCraftType(String craftType) {
+        this.craftType = craftType;
     }
 
     public Date getCreatedAt() {
@@ -69,7 +69,7 @@ public class MembershipTypeVO implements Serializable {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof MembershipTypeVO that)) return false;
+        if (!(o instanceof CraftTypeVO that)) return false;
         return Objects.equals(getId(), that.getId());
     }
 
