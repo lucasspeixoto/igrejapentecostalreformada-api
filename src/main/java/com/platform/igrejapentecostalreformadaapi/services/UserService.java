@@ -24,7 +24,7 @@ public class UserService {
 
     public UserVO findByUsernameOrEmail(String username, String email) {
         User user = this.repository.findByUsernameOrEmail(username, email).orElseThrow(
-                () -> new ResourceNotFoundException("User", "email", 1L)
+                () -> new ResourceNotFoundException("Usuário", "email", 1L)
         );
 
         return this.userMapper.convertEntityToVO(user);
@@ -39,7 +39,7 @@ public class UserService {
     public UserVO findById(Long id) {
 
         User user = this.repository.findById(id).orElseThrow(
-                () -> new ResourceNotFoundException("User", "id", id)
+                () -> new ResourceNotFoundException("Usuário", "id", id)
         );
 
         return this.userMapper.convertEntityToVO(user);
