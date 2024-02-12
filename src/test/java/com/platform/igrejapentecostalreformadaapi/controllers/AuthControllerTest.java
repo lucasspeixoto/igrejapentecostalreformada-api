@@ -1,10 +1,10 @@
 package integrationtests.controller;
 
 import com.platform.igrejapentecostalreformadaapi.IgrejapentecostalreformadaApiApplication;
+import com.platform.igrejapentecostalreformadaapi.data.response.JWTAuthResponse;
 import config.TestConfigs;
 import integrationtests.testcontainers.AbstractIntegrationTest;
 import integrationtests.vo.AccountCredentialsVO;
-import integrationtests.vo.TokenVO;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
@@ -20,15 +20,15 @@ import static org.junit.jupiter.api.Assertions.*;
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class AuthControllerTest extends AbstractIntegrationTest  {
 
-    private static TokenVO tokenVO;
+    private static JWTAuthResponse jwtAuthResponse;
 
     @Test
     @Order(1)
-    public void testSignin() throws IOException {
+    public void testSignIn() throws IOException {
         AccountCredentialsVO user = new AccountCredentialsVO("admin", "admin");
 
-        tokenVO = given()
-                .basePath("/api/v1/auth/login")
+        jwtAuthResponse = given()
+                .basePath("/auth/login")
                 .port(TestConfigs.SERVER_PORT)
                 .contentType(TestConfigs.CONTENT_TYPE_JSON)
                 .body(user)
@@ -38,11 +38,13 @@ public class AuthControllerTest extends AbstractIntegrationTest  {
                 .statusCode(200)
                 .extract()
                 .body()
-                .as(TokenVO.class);
+                .as(JWTAuthResponse.class);
 
 
-        assertNotNull(tokenVO.getAccessToken());
-        assertEquals("Bearer", tokenVO.getTokenType());
+        assertNotNull(jwtAuthResponse.getAccessToken());
+        assertNotNull(jwtAuthResponse.getRefreshToken());
+        assertEquals("Bearer", jwtAuthResponse.getTokenType());
+        assertTrue(jwtAuthResponse.getAuthenticated());
 
     }
 }

@@ -1,4 +1,4 @@
-package com.platform.igrejapentecostalreformadaapi.controllers.register;
+package com.platform.igrejapentecostalreformadaapi.controllers.register.impl;
 
 import com.platform.igrejapentecostalreformadaapi.data.vo.register.ContactVO;
 import com.platform.igrejapentecostalreformadaapi.services.register.ContactService;
