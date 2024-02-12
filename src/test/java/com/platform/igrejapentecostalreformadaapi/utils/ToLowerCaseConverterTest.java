@@ -8,14 +8,14 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
+import org.mockito.*;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @ExtendWith(MockitoExtension.class)
 class ToLowerCaseConverterTest {
 
-    @InjectMocks
+    @Spy
     private ToLowerCaseConverter toLowerCaseConverter;
 
     @DisplayName("JUnit test for LowerCaseConverter converter class convert method")

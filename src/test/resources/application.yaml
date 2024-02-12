@@ -1,0 +1,37 @@
+server:
+  port: 8888
+cors:
+  originPatterns: http://localhost:4200,http://localhost:3000,http://localhost:8080
+  allowed-origins: http://localhost:4200,http://localhost:3000,http://localhost:8080
+  allowed-methods: GET, POST, PATCH, PUT, DELETE, OPTIONS, HEAD
+  max-age: 3600
+  allowed-headers: "Requestor-Type"
+  exposed-headers: "X-Get-Header"
+security:
+  jwt:
+    token:
+      secret-key: daf66e01593f61a15b857cf433aae03a005812b31234e149036bcc8dee755dbb
+      expire-length: 604800000
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/igrejapentecostalreformada?useTimezone=true&serverTimezone=America/Sao_Paulo
+    username: root
+    password: lucasadmin3010
+  jpa:
+    generate-ddl: true
+    hibernate:
+      ddl-auto: none
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+    show-sql: false
+  flyway:
+    enabled: true
+  jackson:
+    time-zone: America/Sao_Paulo
+springdoc:
+  pathsToMatch:
+    - /api/v1/**/
+  swagger-ui:
+    use-root-path: true

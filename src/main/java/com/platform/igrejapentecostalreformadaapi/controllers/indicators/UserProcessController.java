@@ -1,6 +1,6 @@
-package com.platform.igrejapentecostalreformadaapi.controllers;
+package com.platform.igrejapentecostalreformadaapi.controllers.indicators;
 
-import com.platform.igrejapentecostalreformadaapi.data.vo.UserProcessVO;
+import com.platform.igrejapentecostalreformadaapi.data.vo.indicators.UserProcessVO;
 import com.platform.igrejapentecostalreformadaapi.services.UserProcessService;
 import com.platform.igrejapentecostalreformadaapi.utils.constants.MediaType;
 import io.swagger.v3.oas.annotations.Operation;

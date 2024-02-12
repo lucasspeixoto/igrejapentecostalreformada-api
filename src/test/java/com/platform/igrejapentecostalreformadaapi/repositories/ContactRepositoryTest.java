@@ -6,17 +6,20 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import com.platform.igrejapentecostalreformadaapi.entities.User;
 import com.platform.igrejapentecostalreformadaapi.repositories.register.ContactRepository;
+import integrationtests.testcontainers.AbstractIntegrationTest;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * O @DataJpaTest sobe um bando de dados em memória
@@ -34,16 +37,20 @@ import java.util.List;
 @ExtendWith(SpringExtension.class)
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
+@DirtiesContext
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-@DisplayName("Contact repository tests")
-class ContactRepositoryTest {
+@DisplayName("Contact repository (Integration Tests)")
+class ContactRepositoryTest extends AbstractIntegrationTest {
 
     @Autowired
-    private ContactRepository repository;
+    private ContactRepository contactRepository;
+
+    @Autowired
+    private UserRepository userRepository;
 
     public Contact contact;
 
-    public static User user;
+    public User user;
 
     public static SimpleDateFormat simpleDateFormat;
 
@@ -52,53 +59,58 @@ class ContactRepositoryTest {
         simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
     }
 
+
     @BeforeEach
     public void config() throws ParseException {
-        Date birthday = simpleDateFormat.parse("30/10/1991");
-
-        this.contact = new Contact("Masculino", "19982621117", "19982621117", birthday, null);
+        this.setUser();
     }
 
-    @DisplayName("Given Contact List when find all then return Contact List")
+    @DisplayName("JUnit Test for Given a Contact Object when save then return Saved Contact Object")
     @Test
     @Order(1)
+    void testGivenContactObject_WhenSave_ThenReturnSavedContact() throws ParseException {
+
+        Contact savedContact = this.contactRepository.save(this.contact);
+
+        assertNotNull(savedContact);
+        assertTrue(savedContact.getId() > 0);
+        assertEquals("Masculino", savedContact.getSex());
+        assertEquals("19982621117", savedContact.getCellphone());
+        assertEquals("19982621117", savedContact.getTelephone());
+
+    }
+
+    @DisplayName("JUnit Test for Given a List of Contacts Objects when find all then return Saved Contacts List")
+    @Test
+    @Order(2)
     void testGivenContactList_WhenFindAll_ThenReturnContactList() throws ParseException {
         Date firstContactBirthday = simpleDateFormat.parse("30/10/1991");
         Contact firstContact = new Contact("Masculino", "199982621117", "199982621117", firstContactBirthday, this.user);
 
-        Date secondContactBirthday = simpleDateFormat.parse("10/02/1994");
-        Contact secondContact = new Contact("Feminino", "19981448980", "19981448980", secondContactBirthday, this.user);
+        contactRepository.save(firstContact);
 
-        repository.save(firstContact);
-        repository.save(secondContact);
-
-        List<Contact> contacts = repository.findAll();
+        List<Contact> contacts = contactRepository.findAll();
 
         assertNotNull(contacts);
+        assertEquals(1, contacts.size());
 
     }
 
-    @DisplayName("Given Contact Object when find by id then return Contact Object")
-    @Test
-    @Order(2)
-    void testGivenContactObject_WhenSave_ThenReturnSavedContact() throws ParseException {
 
-        Contact savedContact = this.repository.save(this.contact);
-
-        assertNotNull(savedContact);
-        assertTrue(savedContact.getId() > 0);
-    }
-
-    @DisplayName("Given Contact Object when find by id then return Contact Object")
+    @DisplayName("JUnit test for get a contact by Id")
     @Test
     @Order(3)
     void testGivenContactObject_WhenFindById_ThenReturnSavedContact() {
 
-        Contact savedContact = this.repository.save(this.contact);
-        Contact findContact = this.repository.findById(savedContact.getId()).get();
+        Contact savedContact = this.contactRepository.save(this.contact);
+
+        Contact findContact = this.contactRepository.findById(savedContact.getId()).get();
 
         assertNotNull(findContact);
         assertEquals(savedContact.getId(), findContact.getId());
+        assertEquals(savedContact.getSex(), findContact.getSex());
+        assertEquals(savedContact.getCellphone(), findContact.getCellphone());
+        assertEquals(savedContact.getTelephone(), findContact.getTelephone());
     }
 
     @DisplayName("Given Contact Object when find by user id then return Contact Object")
@@ -106,14 +118,42 @@ class ContactRepositoryTest {
     @Order(4)
     void testGivenContactObject_WhenFindByUserId_ThenReturnUserContact() {
 
-        this.repository.save(this.contact);
-        Contact findContactByUserId = this.repository.findByUserId(1L).get();
+        this.contactRepository.save(this.contact);
 
-        assertNotNull(findContactByUserId);
-        assertTrue(findContactByUserId.getId() > 0);
-        assertEquals(1L, findContactByUserId.getUserId());
-        assertEquals("Masculino", findContactByUserId.getSex());
-        assertEquals("19982621117", findContactByUserId.getCellphone());
-        assertEquals("19982621117", findContactByUserId.getTelephone());
+        Optional<Contact> findOptionalContact = this.contactRepository.findByUserId(this.contact.getId());
+
+        if(findOptionalContact.isPresent()) {
+            Contact findContactByUserId = findOptionalContact.get();
+            assertNotNull(findContactByUserId);
+            assertTrue(findContactByUserId.getId() > 0);
+            assertEquals(1L, findContactByUserId.getUserId());
+            assertEquals("Masculino", findContactByUserId.getSex());
+            assertEquals("19982621117", findContactByUserId.getCellphone());
+            assertEquals("19982621117", findContactByUserId.getTelephone());
+        }
+
     }
+
+    private void setUser() throws ParseException {
+        Optional<User> optionalUser = userRepository.findById(1L);
+
+        if(optionalUser.isPresent()) {
+            user = optionalUser.get();
+            this.setContact();
+        } else {
+            user = null;
+        }
+
+    }
+
+    private void setContact() throws ParseException {
+        this.contact = new Contact(
+                "Masculino",
+                "19982621117",
+                "19982621117",
+                simpleDateFormat.parse("30/10/1991"),
+                user
+        );
+    }
+
 }

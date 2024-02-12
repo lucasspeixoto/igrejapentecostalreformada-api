@@ -23,16 +23,18 @@ public class DocumentVO implements Serializable {
     @NotEmpty(message = "O RG é obrigatório!")
     @Pattern(regexp = "^[0-9]{8}[0-9a-zA-Z]$", message = "O RG precisa conter 8 dígitos!")
     private String rg;
-    
+
     @NotEmpty(message = "O CPF é obrigatório!")
     @Pattern(regexp = "^[0-9]{11}$", message = "O CPF precisa conter 11 dígitos numéricos!")
     private String cpf;
 
+   /*
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "America/Sao_Paulo")
     private Date createdAt;
 
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "America/Sao_Paulo")
     private Date updatedAt;
+    */
 
     @JsonIgnore
     private User user;
@@ -40,6 +42,10 @@ public class DocumentVO implements Serializable {
     public DocumentVO(String rg, String cpf) {
         this.rg = rg;
         this.cpf = cpf;
+    }
+
+    public DocumentVO() {
+
     }
 
     public Long getId() {
@@ -66,6 +72,7 @@ public class DocumentVO implements Serializable {
         this.cpf = cpf;
     }
 
+   /*
     public Date getCreatedAt() {
         return createdAt;
     }
@@ -81,6 +88,7 @@ public class DocumentVO implements Serializable {
     public void setUpdatedAt(Date updatedAt) {
         this.updatedAt = updatedAt;
     }
+    */
 
     public User getUser() {
         return user;

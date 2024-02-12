@@ -2,9 +2,11 @@ package com.platform.igrejapentecostalreformadaapi.services;
 
 import com.platform.igrejapentecostalreformadaapi.data.vo.MemberVO;
 import com.platform.igrejapentecostalreformadaapi.entities.*;
+import com.platform.igrejapentecostalreformadaapi.entities.indicators.UserProcess;
 import com.platform.igrejapentecostalreformadaapi.entities.register.Contact;
 import com.platform.igrejapentecostalreformadaapi.entities.register.Membership;
 import com.platform.igrejapentecostalreformadaapi.repositories.*;
+import com.platform.igrejapentecostalreformadaapi.repositories.indicators.UserProcessRepository;
 import com.platform.igrejapentecostalreformadaapi.repositories.register.ContactRepository;
 import com.platform.igrejapentecostalreformadaapi.repositories.register.MembershipRepository;
 import com.platform.igrejapentecostalreformadaapi.utils.services.Transform;

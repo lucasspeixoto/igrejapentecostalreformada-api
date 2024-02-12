@@ -4,7 +4,7 @@ import com.platform.igrejapentecostalreformadaapi.data.response.JWTAuthResponse;
 import com.platform.igrejapentecostalreformadaapi.data.response.PlatformResponse;
 import com.platform.igrejapentecostalreformadaapi.data.vo.LoginVO;
 import com.platform.igrejapentecostalreformadaapi.data.vo.RegisterVO;
-import com.platform.igrejapentecostalreformadaapi.data.vo.UserProcessVO;
+import com.platform.igrejapentecostalreformadaapi.data.vo.indicators.UserProcessVO;
 import com.platform.igrejapentecostalreformadaapi.entities.Role;
 import com.platform.igrejapentecostalreformadaapi.entities.User;
 import com.platform.igrejapentecostalreformadaapi.exceptions.PlatformException;

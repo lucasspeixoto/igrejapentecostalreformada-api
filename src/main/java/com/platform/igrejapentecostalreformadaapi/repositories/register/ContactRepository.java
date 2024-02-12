@@ -9,9 +9,14 @@ import java.util.Optional;
 
 public interface ContactRepository extends JpaRepository<Contact, Long> {
 
-    @Query(nativeQuery = true, value = """
-                    SELECT * from contacts c
-                    WHERE c.user_id = :id
-            """)
+
+    /**
+     * Find a contact by its user id.
+     * Is Tested: true
+     * @param id the user id
+     * @return the contact
+     * @author Lucas Peixoto
+     */
+    @Query(nativeQuery = true, value = "SELECT * from contacts c WHERE c.user_id = :id")
     Optional<Contact> findByUserId(@Param("id") Long id);
 }

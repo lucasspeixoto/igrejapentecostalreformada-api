@@ -1,12 +1,12 @@
 package com.platform.igrejapentecostalreformadaapi.services;
 
-import com.platform.igrejapentecostalreformadaapi.data.vo.UserProcessVO;
+import com.platform.igrejapentecostalreformadaapi.data.vo.indicators.UserProcessVO;
 import com.platform.igrejapentecostalreformadaapi.entities.User;
-import com.platform.igrejapentecostalreformadaapi.entities.UserProcess;
+import com.platform.igrejapentecostalreformadaapi.entities.indicators.UserProcess;
 import com.platform.igrejapentecostalreformadaapi.exceptions.ResourceAlreadyExistsException;
 import com.platform.igrejapentecostalreformadaapi.exceptions.ResourceNotFoundException;
-import com.platform.igrejapentecostalreformadaapi.mappers.UserProcessMapper;
-import com.platform.igrejapentecostalreformadaapi.repositories.UserProcessRepository;
+import com.platform.igrejapentecostalreformadaapi.mappers.indicators.UserProcessMapper;
+import com.platform.igrejapentecostalreformadaapi.repositories.indicators.UserProcessRepository;
 import com.platform.igrejapentecostalreformadaapi.repositories.UserRepository;
 import com.platform.igrejapentecostalreformadaapi.utils.constants.Messages;
 import org.springframework.beans.factory.annotation.Autowired;

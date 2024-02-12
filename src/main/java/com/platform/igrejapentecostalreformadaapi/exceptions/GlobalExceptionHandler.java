@@ -51,7 +51,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
             WebRequest webRequest
     ) {
 
-        HttpStatus status = HttpStatus.NOT_FOUND;
+        HttpStatus status = HttpStatus.CONFLICT;
 
         ErrorDetails errorDetails = new ErrorDetails(
                 Instant.now(),

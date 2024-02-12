@@ -13,7 +13,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
 
-@JsonPropertyOrder({"id", "birthday", "cellphone", "telephone", "sex", "created_at", "cellphone"})
+@JsonPropertyOrder({"id", "birthday", "cellphone", "telephone", "sex"})
 public class ContactVO implements Serializable {
 
     @Serial
@@ -22,6 +22,7 @@ public class ContactVO implements Serializable {
     private Long id;
 
     @NotNull(message = "O aniversário é obrigatório!")
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "America/Sao_Paulo")
     private Date birthday;
 
     @NotEmpty(message = "O celular é obrigatório!")
@@ -34,10 +35,10 @@ public class ContactVO implements Serializable {
     @NotEmpty(message = "O sexo é obrigatório!")
     private String sex;
 
-    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "America/Sao_Paulo")
+    @JsonIgnore
     private Date createdAt;
 
-    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "America/Sao_Paulo")
+    @JsonIgnore
     private Date updatedAt;
 
     @JsonIgnore
@@ -49,6 +50,8 @@ public class ContactVO implements Serializable {
         this.telephone = telephone;
         this.sex = sex;
     }
+
+    public ContactVO() {}
 
     public Long getUserId() {
         return this.user.getId();

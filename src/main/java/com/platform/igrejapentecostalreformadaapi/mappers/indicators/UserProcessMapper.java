@@ -1,7 +1,7 @@
-package com.platform.igrejapentecostalreformadaapi.mappers;
+package com.platform.igrejapentecostalreformadaapi.mappers.indicators;
 
-import com.platform.igrejapentecostalreformadaapi.data.vo.UserProcessVO;
-import com.platform.igrejapentecostalreformadaapi.entities.UserProcess;
+import com.platform.igrejapentecostalreformadaapi.data.vo.indicators.UserProcessVO;
+import com.platform.igrejapentecostalreformadaapi.entities.indicators.UserProcess;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 

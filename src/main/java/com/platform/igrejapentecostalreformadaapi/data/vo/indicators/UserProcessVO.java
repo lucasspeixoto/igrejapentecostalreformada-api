@@ -1,4 +1,4 @@
-package com.platform.igrejapentecostalreformadaapi.data.vo;
+package com.platform.igrejapentecostalreformadaapi.data.vo.indicators;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;

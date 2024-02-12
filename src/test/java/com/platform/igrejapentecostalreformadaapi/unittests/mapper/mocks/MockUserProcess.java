@@ -1,8 +1,8 @@
 package com.platform.igrejapentecostalreformadaapi.unittests.mapper.mocks;
 
-import com.platform.igrejapentecostalreformadaapi.data.vo.UserProcessVO;
+import com.platform.igrejapentecostalreformadaapi.data.vo.indicators.UserProcessVO;
 import com.platform.igrejapentecostalreformadaapi.entities.User;
-import com.platform.igrejapentecostalreformadaapi.entities.UserProcess;
+import com.platform.igrejapentecostalreformadaapi.entities.indicators.UserProcess;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,6 +1,7 @@
-package com.platform.igrejapentecostalreformadaapi.entities;
+package com.platform.igrejapentecostalreformadaapi.entities.indicators;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.platform.igrejapentecostalreformadaapi.entities.User;
 import jakarta.persistence.*;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;

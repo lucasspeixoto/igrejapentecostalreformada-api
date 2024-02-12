@@ -1,8 +1,6 @@
-<h1 align="center">
+<h1>
    Cadastro IPR
 </h1>
-
-
 
 ## 💻 Repositório
 
