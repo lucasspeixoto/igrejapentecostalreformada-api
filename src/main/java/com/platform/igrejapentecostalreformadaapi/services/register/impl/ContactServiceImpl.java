@@ -12,6 +12,8 @@ import com.platform.igrejapentecostalreformadaapi.services.register.ContactServi
 import com.platform.igrejapentecostalreformadaapi.utils.constants.Messages;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -31,6 +33,7 @@ public class ContactServiceImpl implements ContactService {
     @Autowired
     private ContactMapper mapper;
 
+
     /**
      * Creates a new contact for the given user.
      * Is Tested: true
@@ -41,6 +44,7 @@ public class ContactServiceImpl implements ContactService {
      * @throws ResourceAlreadyExistsException if a contact for the given user already exists
      * @author Lucas Peixoto
      */
+    @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
     public ContactVO create(ContactVO contactVO, Long userId) {
 
         logger.info("Creating a contact user data");
@@ -71,6 +75,7 @@ public class ContactServiceImpl implements ContactService {
      * Is Tested: true
      * @return a list of all contacts in the system
      * @throws Exception if there is an error retrieving the contacts
+     * @author Lucas Peixoto
      */
     public List<ContactVO> findAll() throws Exception {
 
@@ -88,6 +93,7 @@ public class ContactServiceImpl implements ContactService {
      * @param id the ID of the contact to retrieve
      * @return the contact with the given ID
      * @throws ResourceNotFoundException if no contact with the given ID is found
+     * @author Lucas Peixoto
      */
     public ContactVO findById(Long id) {
         logger.info("Finding a contact by Id");
@@ -108,6 +114,7 @@ public class ContactServiceImpl implements ContactService {
      * @param id the ID of the contact to retrieve
      * @return the contact with the given ID
      * @throws ResourceNotFoundException if no contact with the given ID is found
+     * @author Lucas Peixoto
      */
     public ContactVO findByUserId(Long id) {
         logger.info("Finding a contact by Id");
@@ -130,8 +137,9 @@ public class ContactServiceImpl implements ContactService {
      * @param contactVO the contact data to be updated
      * @return the updated contact data
      * @throws ResourceNotFoundException if the contact with the given id cannot be found
-     * @author: Lucas
+     * @author Lucas Peixoto
      */
+    @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
     public ContactVO update(ContactVO contactVO) {
 
         logger.info("Updating a contact user data");
